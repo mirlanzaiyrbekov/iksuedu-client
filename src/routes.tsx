@@ -18,7 +18,7 @@ export const routes = createBrowserRouter([
 				element: <AuthPage />,
 			},
 			{
-				path: '/home/*',
+				path: '/*',
 				element: <NotFoundPage />,
 			},
 		],
