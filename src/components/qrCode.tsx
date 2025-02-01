@@ -1,4 +1,3 @@
-import { Button } from '@/components/button'
 import {
 	Dialog,
 	DialogContent,
@@ -9,14 +8,20 @@ import {
 } from '@/components/ui/dialog'
 import { QrCode, Share2 } from 'lucide-react'
 import QRCode from 'react-qr-code'
+import {
+	TelegramIcon,
+	TelegramShareButton,
+	WhatsappIcon,
+	WhatsappShareButton,
+} from 'react-share'
 
 export const QrCodeComponent: React.FC = () => {
 	return (
 		<Dialog>
 			<DialogTrigger>
-				<Button variant={'outline'} size={'sm'}>
+				<div className="border p-1 rounded-sm">
 					<QrCode />
-				</Button>
+				</div>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
@@ -26,10 +31,22 @@ export const QrCodeComponent: React.FC = () => {
 							<div className="border border-gray-200 p-4 rounded-md">
 								<QRCode value="https://iksu.academy" className="w-32 h-32" />
 							</div>
-							<Button>
-								<Share2 />
+							<span className="flex items-center justify-center gap-1.5 border p-2 rounded-md">
+								<Share2 size={16} />
 								Поделиться в
-							</Button>
+							</span>
+							<div className="flex items-center justify-center">
+								<WhatsappShareButton url="https://iksu.academy">
+									<div className="w-10 h-10 relative text-sm">
+										<WhatsappIcon size={32} className="rounded-sm" />
+									</div>
+								</WhatsappShareButton>
+								<TelegramShareButton url="https://iksu.academy">
+									<div className="w-10 h-10 relative text-sm">
+										<TelegramIcon size={32} className="rounded-sm" />
+									</div>
+								</TelegramShareButton>
+							</div>
 						</div>
 					</DialogDescription>
 				</DialogHeader>

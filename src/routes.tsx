@@ -5,6 +5,7 @@ import { CreateTestPage } from './pages/crud/create'
 import { UpdateTestPage } from './pages/crud/update'
 import { HomePage } from './pages/home'
 import { NotFoundPage } from './pages/not-found'
+import { TestPage } from './pages/tests/test'
 
 export const routes = createBrowserRouter([
 	{
@@ -18,6 +19,10 @@ export const routes = createBrowserRouter([
 			{
 				path: '/auth',
 				element: <AuthPage />,
+			},
+			{
+				path: '/tests/:slug',
+				element: <TestPage />,
 			},
 			{
 				path: '/create',

@@ -1,4 +1,5 @@
 import { Button } from '@/components/button'
+import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import {
 	Table,
@@ -11,6 +12,7 @@ import {
 } from '@/components/ui/table'
 import { Link as LinkIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 
 export const HomePage = () => {
 	return (
@@ -18,11 +20,15 @@ export const HomePage = () => {
 			<Helmet>
 				<title>Мои тесты</title>
 			</Helmet>
-			<div className="flex flex-col gap-10">
-				<div className="my-2">
-					<h4>Ваши тесты</h4>
+			<NavigationComponent />
+			<div className="flex flex-col gap-3">
+				<div className="my-5">
+					<h4 className="font-medium flex items-baseline gap-2">
+						Ваши тесты,
+						<span className="text-sm text-sky-600">Username</span>
+					</h4>
 				</div>
-				<Table>
+				<Table className="border">
 					<TableCaption>Таблица ваших тестов</TableCaption>
 					<TableHeader>
 						<TableRow>
@@ -37,7 +43,9 @@ export const HomePage = () => {
 					<TableBody>
 						<TableRow>
 							<TableCell className="font-medium">
-								Тест по знании Географии мира
+								<Link to={`/tests/awdawdwd`}>
+									Тест по знании Географии мира
+								</Link>
 							</TableCell>
 							<TableCell className="font-medium">Да</TableCell>
 							<TableCell className="font-medium">20.01.2025</TableCell>
