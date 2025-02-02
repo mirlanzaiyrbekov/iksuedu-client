@@ -8,34 +8,63 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { AuthEnum } from '@/enum/auth.enum'
+import { saveToStorage } from '@/helpers/storage.helpers'
+import { toast } from '@/hooks/use-toast'
 import { IAuthProps } from '@/pages/auth'
-import { loginScheme } from '@/services/scheme/auth.scheme'
+import { authService } from '@/services/auth.service'
+import { signInScheme } from '@/services/scheme/auth.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import {
 	Eye,
 	EyeOff,
+	Loader2,
 	SendHorizonal,
 	UserRoundCheck,
 	UserRoundPlus,
 } from 'lucide-react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Button } from '../ui/button'
 
 export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 	const [inputType, setInputType] = React.useState<boolean>(false)
+	const navigate = useNavigate()
+	const { isPending, mutateAsync } = useMutation({
+		mutationKey: ['loginUser'],
+		mutationFn: (data: z.infer<typeof signInScheme>) =>
+			authService.signIn(data),
+	})
 
-	const form = useForm<z.infer<typeof loginScheme>>({
-		resolver: zodResolver(loginScheme),
+	const form = useForm<z.infer<typeof signInScheme>>({
+		resolver: zodResolver(signInScheme),
 		defaultValues: {
 			email: '',
 			password: '',
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof loginScheme>) {
-		console.log(values)
+	async function onSubmit(values: z.infer<typeof signInScheme>) {
+		try {
+			await mutateAsync(values, {
+				onSuccess({ data }) {
+					toast({
+						title: data.message,
+					})
+					saveToStorage(AuthEnum.ACCESS_TOKEN, data.access_token)
+					saveToStorage(AuthEnum.IS_AUTHENTIFICATION, 'true')
+					navigate('/')
+				},
+			})
+		} catch (error) {
+			toast({
+				title: 'Ошибка.',
+				description: `${String(error)}`,
+			})
+		}
 	}
 	return (
 		<div className="flex flex-col gap-8 items-center py-10 max-w-sm w-full">
@@ -87,7 +116,11 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 						)}
 					/>
 					<Button type="submit" className="w-full">
-						<SendHorizonal />
+						{isPending ? (
+							<Loader2 className="animate-spin" />
+						) : (
+							<SendHorizonal />
+						)}
 						Войти
 					</Button>
 				</form>
@@ -97,6 +130,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 					Нет акаунта? Зарегистрируйтесь!
 				</span>
 				<Button
+					disabled={isPending}
 					variant={'outline'}
 					onClick={() => authChoice({ type: 'REGISTER' })}
 				>

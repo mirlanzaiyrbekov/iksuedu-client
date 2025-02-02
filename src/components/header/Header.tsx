@@ -1,6 +1,7 @@
 import { PencilLine, Scroll } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Separator } from '../ui/separator'
+import { UserComponent } from '../user'
 
 export const Header = () => {
 	return (
@@ -30,7 +31,7 @@ export const Header = () => {
 							</Link>
 						</li>
 					</ul>
-					<div className="w-9 h-9 rounded-full bg-muted/95"></div>
+					<UserComponent />
 				</div>
 			</div>
 			<Separator />

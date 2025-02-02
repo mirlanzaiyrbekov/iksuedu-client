@@ -8,18 +8,32 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { toast } from '@/hooks/use-toast'
 import { IAuthProps } from '@/pages/auth'
-import { registerScheme } from '@/services/scheme/auth.scheme'
+import { authService } from '@/services/auth.service'
+import { signUpScheme } from '@/services/scheme/auth.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SendHorizonal, UserRoundCheck, UserRoundPlus } from 'lucide-react'
+import { useMutation } from '@tanstack/react-query'
+import {
+	Loader2,
+	SendHorizonal,
+	UserRoundCheck,
+	UserRoundPlus,
+} from 'lucide-react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '../ui/button'
 
 export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
-	const form = useForm<z.infer<typeof registerScheme>>({
-		resolver: zodResolver(registerScheme),
+	const { isPending, mutateAsync } = useMutation({
+		mutationKey: ['registerUser'],
+		mutationFn: (data: z.infer<typeof signUpScheme>) =>
+			authService.signUp(data),
+	})
+
+	const form = useForm<z.infer<typeof signUpScheme>>({
+		resolver: zodResolver(signUpScheme),
 		defaultValues: {
 			firstName: '',
 			lastName: '',
@@ -30,8 +44,20 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof registerScheme>) {
-		console.log(values)
+	async function onSubmit(values: z.infer<typeof signUpScheme>) {
+		try {
+			await mutateAsync(values, {
+				onSuccess({ data }) {
+					toast({
+						title: `${data.message}`,
+					})
+				},
+			})
+		} catch (error) {
+			toast({
+				title: `${String(error)}`,
+			})
+		}
 	}
 	return (
 		<div className="flex flex-col gap-8 items-center py-10">
@@ -137,8 +163,12 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 						)}
 					/>
 
-					<Button type="submit" className="w-full">
-						<SendHorizonal />
+					<Button disabled={isPending} type="submit" className="w-full">
+						{isPending ? (
+							<Loader2 className="animate-spin" />
+						) : (
+							<SendHorizonal />
+						)}
 						Регистрация
 					</Button>
 				</form>

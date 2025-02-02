@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const registerScheme = z.object({
+export const signUpScheme = z.object({
 	firstName: z
 		.string({ message: 'Имя должно быть в строковом формате' })
 		.min(2, 'Минимальная длина 2 символа.')
@@ -28,7 +28,7 @@ export const registerScheme = z.object({
 		.max(9, 'Максимальная длина 9 символов'),
 })
 
-export const loginScheme = z.object({
+export const signInScheme = z.object({
 	email: z
 		.string()
 		.min(2, 'Минимальная длина 2 символа.')
