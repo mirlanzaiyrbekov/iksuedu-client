@@ -9,10 +9,6 @@ export const signUpScheme = z.object({
 		.string()
 		.min(2, 'Минимальная длина 2 символа.')
 		.max(50, 'Максимальная длина 50 символов'),
-	thirdName: z
-		.string()
-		.min(2, 'Минимальная длина 2 символа.')
-		.max(50, 'Максимальная длина 50 символов'),
 	password: z
 		.string()
 		.min(2, 'Минимальная длина 2 символа.')
@@ -22,10 +18,6 @@ export const signUpScheme = z.object({
 		.min(2, 'Минимальная длина 2 символа.')
 		.max(50, 'Максимальная длина 50 символов')
 		.email({ message: 'Введите валидный E-mail' }),
-	phone: z
-		.string()
-		.min(9, 'Минимальная длина 9 символа.')
-		.max(9, 'Максимальная длина 9 символов'),
 })
 
 export const signInScheme = z.object({

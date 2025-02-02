@@ -37,10 +37,8 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 		defaultValues: {
 			firstName: '',
 			lastName: '',
-			thirdName: '',
 			email: '',
 			password: '',
-			phone: '',
 		},
 	})
 
@@ -100,20 +98,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 							)}
 						/>
 					</div>
-					<FormField
-						control={form.control}
-						name="thirdName"
-						render={({ field }) => (
-							<FormItem className="w-full relative">
-								<FormLabel>Отчество</FormLabel>
-								<FormControl>
-									<Input placeholder="Отчество" {...field} />
-								</FormControl>
-								<FormDescription className="hidden" />
-								<FormMessage className="text-xs absolute top-0 right-0" />
-							</FormItem>
-						)}
-					/>
+
 					<div className="flex items-center gap-2">
 						<FormField
 							control={form.control}
@@ -144,24 +129,6 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 							)}
 						/>
 					</div>
-					<FormField
-						control={form.control}
-						name="phone"
-						rules={{ maxLength: 9 }}
-						render={({ field }) => (
-							<FormItem className="w-full relative">
-								<FormLabel>Телефон</FormLabel>
-								<FormControl>
-									<Input
-										placeholder="Телефон в формате: 9989944345"
-										{...field}
-									/>
-								</FormControl>
-								<FormDescription className="hidden" />
-								<FormMessage className="text-xs absolute top-0 right-0" />
-							</FormItem>
-						)}
-					/>
 
 					<Button disabled={isPending} type="submit" className="w-full">
 						{isPending ? (

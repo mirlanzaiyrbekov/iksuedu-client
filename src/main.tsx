@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App.tsx'
 import { AuthProvider } from './providers/auth.provider.tsx'
+import { UserProvider } from './providers/user.provider.tsx'
 import './styles/index.css'
 
 const client = new QueryClient({
@@ -18,7 +19,9 @@ createRoot(document.getElementById('root')!).render(
 		<HelmetProvider>
 			<QueryClientProvider client={client}>
 				<AuthProvider>
-					<App />
+					<UserProvider>
+						<App />
+					</UserProvider>
 				</AuthProvider>
 			</QueryClientProvider>
 		</HelmetProvider>

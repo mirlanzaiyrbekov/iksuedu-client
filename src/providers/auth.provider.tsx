@@ -7,6 +7,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
 	const [isAuth, setIsAuth] = React.useState(false)
 
 	const setAuthHandle = () => setIsAuth(!isAuth)
+
 	return (
 		<AuthContext.Provider value={{ isAuth, setAuthHandle }}>
 			{children}

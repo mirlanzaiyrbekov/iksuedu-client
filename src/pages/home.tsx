@@ -10,11 +10,15 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
+import { formatDate } from '@/helpers/formate-date'
+import { useUser } from '@/hooks/use-user'
 import { Link as LinkIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 export const HomePage = () => {
+	const { user } = useUser()
+
 	return (
 		<>
 			<Helmet>
@@ -41,24 +45,29 @@ export const HomePage = () => {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						<TableRow>
-							<TableCell className="font-medium">
-								<Link to={`/tests/awdawdwd`}>
-									Тест по знании Географии мира
-								</Link>
-							</TableCell>
-							<TableCell className="font-medium">Да</TableCell>
-							<TableCell className="font-medium">20.01.2025</TableCell>
-							<TableCell className="font-medium">12 дней</TableCell>
-							<TableCell className="font-medium">
-								<Button variant={'outline'} size={'sm'}>
-									<LinkIcon />
-								</Button>
-							</TableCell>
-							<TableCell className="font-medium">
-								<QrCodeComponent />
-							</TableCell>
-						</TableRow>
+						{user &&
+							user.tests.map((quiz) => (
+								<TableRow key={quiz.id}>
+									<TableCell className="font-medium">
+										<Link to={`/tests/awdawdwd`}>{quiz.title}</Link>
+									</TableCell>
+									<TableCell className="font-medium">
+										{formatDate(quiz.createdAt)}
+									</TableCell>
+									<TableCell className="font-medium">
+										{formatDate(quiz.createdAt)}
+									</TableCell>
+									<TableCell className="font-medium">12 дней</TableCell>
+									<TableCell className="font-medium">
+										<Button variant={'outline'} size={'sm'}>
+											<LinkIcon />
+										</Button>
+									</TableCell>
+									<TableCell className="font-medium">
+										<QrCodeComponent />
+									</TableCell>
+								</TableRow>
+							))}
 					</TableBody>
 				</Table>
 			</div>
