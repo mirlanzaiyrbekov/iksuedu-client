@@ -1,4 +1,3 @@
-import { Button } from '@/components/button'
 import {
 	Form,
 	FormControl,
@@ -22,6 +21,7 @@ import {
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { Button } from '../ui/button'
 
 export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 	const [inputType, setInputType] = React.useState<boolean>(false)

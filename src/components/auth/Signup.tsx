@@ -1,4 +1,3 @@
-import { Button } from '@/components/button'
 import {
 	Form,
 	FormControl,
@@ -16,6 +15,7 @@ import { SendHorizonal, UserRoundCheck, UserRoundPlus } from 'lucide-react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { Button } from '../ui/button'
 
 export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 	const form = useForm<z.infer<typeof registerScheme>>({

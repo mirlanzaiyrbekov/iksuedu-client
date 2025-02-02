@@ -1,6 +1,6 @@
-import { Button } from '@/components/button'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
+import { Button } from '@/components/ui/button'
 import {
 	Table,
 	TableBody,
