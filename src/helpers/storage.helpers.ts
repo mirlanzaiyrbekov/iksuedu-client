@@ -9,7 +9,16 @@ export const saveToStorage = (name: string, data: any) => {
 }
 
 export const getFromStorage = (name: string) => {
-	return localStorage.getItem(name)
+	try {
+		return localStorage.getItem(name)
+	} catch (error) {
+		console.error(`Ошибка при получении ${name} из localStorage`, error)
+		return null
+	}
+}
+
+export const removeFromStorage = (name: string) => {
+	localStorage.removeItem(name)
 }
 
 export const saveUserToStorage = (user: IUser) => {

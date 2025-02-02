@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input'
 import { AuthEnum } from '@/enum/auth.enum'
 import { saveToStorage } from '@/helpers/storage.helpers'
 import { toast } from '@/hooks/use-toast'
+import { useAuth } from '@/hooks/useAuth'
 import { IAuthProps } from '@/pages/auth'
 import { authService } from '@/services/auth.service'
 import { signInScheme } from '@/services/scheme/auth.scheme'
@@ -33,6 +34,7 @@ import { Button } from '../ui/button'
 export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 	const [inputType, setInputType] = React.useState<boolean>(false)
 	const navigate = useNavigate()
+	const { setAuthHandle } = useAuth()
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['loginUser'],
 		mutationFn: (data: z.infer<typeof signInScheme>) =>
@@ -54,8 +56,9 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 					toast({
 						title: data.message,
 					})
-					saveToStorage(AuthEnum.ACCESS_TOKEN, data.access_token)
 					saveToStorage(AuthEnum.IS_AUTHENTIFICATION, 'true')
+					saveToStorage(AuthEnum.ACCESS_TOKEN, data.access_token)
+					setAuthHandle()
 					navigate('/')
 				},
 			})
