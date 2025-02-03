@@ -49,6 +49,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 					toast({
 						title: `${data.message}`,
 					})
+					authChoice({ type: 'LOGIN' })
 				},
 			})
 		} catch (error) {

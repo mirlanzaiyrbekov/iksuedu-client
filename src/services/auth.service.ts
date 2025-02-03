@@ -1,11 +1,10 @@
 import apiBase from '@/api/api-base'
+import { IApiResponse } from '@/interfaces/api.response.interface'
 import { z } from 'zod'
 import { signInScheme, signUpScheme } from './scheme/auth.scheme'
 
-interface IAuthLoginResponse {
+interface IAuthLoginResponse extends IApiResponse {
 	access_token: string
-	message: string
-	success: boolean
 }
 export const authService = {
 	async signIn(data: z.infer<typeof signInScheme>) {

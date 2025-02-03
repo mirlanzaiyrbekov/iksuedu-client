@@ -11,15 +11,23 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ICreateTest } from '@/interfaces/form.interface'
-import { createTestScheme } from '@/services/scheme/test.scheme'
-import { CopyPlus, SaveAll } from 'lucide-react'
+import { toast } from '@/hooks/use-toast'
+import { useUser } from '@/hooks/use-user'
+import { IQuizForm } from '@/interfaces/form.interface'
+import { quizService } from '@/services/quiz.service'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { CopyPlus, Loader2, SaveAll } from 'lucide-react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { useNavigate } from 'react-router-dom'
 
 export const CreateTestPage = () => {
-	const form = useForm<ICreateTest>({
+	const [date, setDate] = React.useState<Date | undefined>()
+	const { user } = useUser()
+	const navigate = useNavigate()
+	const queryClient = useQueryClient()
+	const form = useForm<IQuizForm>({
 		defaultValues: {
 			title: '',
 			questions: [
@@ -28,8 +36,38 @@ export const CreateTestPage = () => {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof createTestScheme>) {
-		console.log(values)
+	const { isPending, mutateAsync } = useMutation({
+		mutationKey: ['CreateTest'],
+		mutationFn: (data: IQuizForm) => quizService.createQuiz(data),
+		onSuccess: ({ data }) => {
+			toast({
+				title: `${data.message}`,
+			})
+			queryClient.invalidateQueries({ queryKey: ['getUserProfile'] })
+			navigate(-1)
+		},
+		onError: (error) => {
+			toast({
+				title: `Ошибка: ${String(error)}`,
+			})
+		},
+	})
+
+	async function onSubmit(values: IQuizForm) {
+		try {
+			if (user) {
+				await mutateAsync({
+					title: values.title,
+					teacherId: user.id,
+					expires: date,
+					questions: values.questions,
+				})
+			}
+		} catch (error) {
+			toast({
+				title: `${String(error)}`,
+			})
+		}
 	}
 
 	const {
@@ -74,7 +112,7 @@ export const CreateTestPage = () => {
 							<div className="flex items-center gap-1">
 								<div className="flex flex-col gap-2.5">
 									<span className="text-xs font-medium">Срок истечения</span>
-									<SelectData />
+									<SelectData date={date} setDate={setDate} />
 								</div>
 							</div>
 							<QuestionForm
@@ -84,8 +122,12 @@ export const CreateTestPage = () => {
 								remove={remove}
 							/>
 							<div className="pt-6">
-								<Button type="submit">
-									<SaveAll />
+								<Button type="submit" disabled={isPending}>
+									{isPending ? (
+										<Loader2 className="animate-spin" />
+									) : (
+										<SaveAll />
+									)}
 									Сохранить
 								</Button>
 							</div>

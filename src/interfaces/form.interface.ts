@@ -6,21 +6,25 @@ import {
 } from 'react-hook-form'
 
 export interface IAnswer {
-	content: string
-	isCorrect: boolean
+	id?: string
+	content?: string
+	isCorrect?: boolean
 }
 export interface IQuestion {
-	content: string
-	answers: IAnswer[]
+	id?: string
+	content?: string
+	answers?: IAnswer[]
 }
-export interface ICreateTest {
-	title: string
-	expires: Date | undefined
-	questions: IQuestion[]
+export interface IQuizForm {
+	id?: string
+	title?: string
+	expires?: Date | undefined
+	teacherId?: string
+	questions?: IQuestion[]
 }
 export interface IQuestionFormProps {
-	questions: FieldArrayWithId<ICreateTest, 'questions'>[] // Массив вопросов
-	control: Control<ICreateTest> // Контрол формы
+	questions: FieldArrayWithId<IQuizForm, 'questions'>[] // Массив вопросов
+	control: Control<IQuizForm> // Контрол формы
 	remove: UseFieldArrayRemove // Функция для удаления вопросов
-	append: UseFieldArrayAppend<ICreateTest, 'questions'> // Функция для добавления вопросов
+	append: UseFieldArrayAppend<IQuizForm, 'questions'> // Функция для добавления вопросов
 }

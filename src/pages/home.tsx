@@ -10,7 +10,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
-import { formatDate } from '@/helpers/formate-date'
+import { calculateDate, formatDate } from '@/helpers/formate-date'
 import { useUser } from '@/hooks/use-user'
 import { Link as LinkIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
@@ -52,12 +52,15 @@ export const HomePage = () => {
 										<Link to={`/tests/awdawdwd`}>{quiz.title}</Link>
 									</TableCell>
 									<TableCell className="font-medium">
-										{formatDate(quiz.createdAt)}
+										До: {formatDate(quiz.expires)}
 									</TableCell>
 									<TableCell className="font-medium">
 										{formatDate(quiz.createdAt)}
 									</TableCell>
-									<TableCell className="font-medium">12 дней</TableCell>
+									<TableCell className="font-medium">
+										{calculateDate(quiz.createdAt, quiz.expires)}
+										-Дней
+									</TableCell>
 									<TableCell className="font-medium">
 										<Button variant={'outline'} size={'sm'}>
 											<LinkIcon />

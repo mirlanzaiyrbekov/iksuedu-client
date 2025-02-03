@@ -1,4 +1,6 @@
-export function formatDate(isoDateString: string) {
+import { intervalToDuration } from 'date-fns'
+
+export function formatDate(isoDateString: Date) {
 	const date = new Date(isoDateString)
 
 	// Форматируем дату (YYYY-MM-DD)
@@ -9,4 +11,12 @@ export function formatDate(isoDateString: string) {
 
 	// Соединяем через "/"
 	return `${formattedDate} ${time}`
+}
+
+export const calculateDate = (startDate: Date, endDate: Date) => {
+	const start = new Date(startDate)
+	const end = new Date(endDate)
+	const duration = intervalToDuration({ start, end })
+
+	return duration.days
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ICreateTest } from '@/interfaces/form.interface'
+import { IQuizForm } from '@/interfaces/form.interface'
 import { Plus, Trash } from 'lucide-react'
 import { Control, useFieldArray, useFormContext } from 'react-hook-form'
 import { Button } from '../ui/button'
@@ -10,14 +10,15 @@ import { Checkbox } from '../ui/checkbox'
 import { Label } from '../ui/label'
 
 export const AnswerForm: React.FC<{
-	control: Control<ICreateTest>
+	control: Control<IQuizForm>
 	questionIndex: number
 }> = ({ control, questionIndex }) => {
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: `questions.${questionIndex}.answers`,
 	})
-	const { setValue, watch } = useFormContext<ICreateTest>()
+
+	const { setValue, watch } = useFormContext<IQuizForm>()
 
 	return (
 		<div className="flex flex-col gap-8">

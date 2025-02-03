@@ -12,8 +12,11 @@ import {
 } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 
-export const SelectData = () => {
-	const [date, setDate] = React.useState<Date>()
+interface ISelectDataProps {
+	date: Date | undefined
+	setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+}
+export const SelectData: React.FC<ISelectDataProps> = ({ setDate, date }) => {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
