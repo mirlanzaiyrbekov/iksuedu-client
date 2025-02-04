@@ -43,7 +43,7 @@ export const CreateTestPage = () => {
 			toast({
 				title: `${data.message}`,
 			})
-			queryClient.invalidateQueries({ queryKey: ['getUserProfile'] })
+			queryClient.invalidateQueries({ queryKey: ['getUser'] })
 			navigate(-1)
 		},
 		onError: (error) => {
@@ -55,12 +55,16 @@ export const CreateTestPage = () => {
 
 	async function onSubmit(values: IQuizForm) {
 		try {
-			if (user) {
+			if (user && date) {
 				await mutateAsync({
 					title: values.title,
 					teacherId: user.id,
 					expires: date,
 					questions: values.questions,
+				})
+			} else {
+				toast({
+					title: 'Ошибка добавления',
 				})
 			}
 		} catch (error) {

@@ -5,7 +5,7 @@ import { CreateTestPage } from './pages/crud/create'
 import { UpdateTestPage } from './pages/crud/update'
 import { HomePage } from './pages/home'
 import { NotFoundPage } from './pages/not-found'
-import { TestPage } from './pages/tests/test'
+import { QuizPage } from './pages/quiz/quiz'
 
 export const routes = createBrowserRouter([
 	{
@@ -21,8 +21,8 @@ export const routes = createBrowserRouter([
 				element: <AuthPage />,
 			},
 			{
-				path: '/tests/:slug',
-				element: <TestPage />,
+				path: '/quiz/:id',
+				element: <QuizPage />,
 			},
 			{
 				path: '/create',

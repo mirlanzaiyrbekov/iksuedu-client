@@ -29,7 +29,7 @@ export const HomePage = () => {
 				<div className="my-5">
 					<h4 className="font-medium flex items-baseline gap-2">
 						Ваши тесты,
-						<span className="text-sm text-sky-600">Username</span>
+						<span className="text-sm text-sky-600">{user?.firstName}</span>
 					</h4>
 				</div>
 				<Table className="border">
@@ -49,7 +49,7 @@ export const HomePage = () => {
 							user.tests.map((quiz) => (
 								<TableRow key={quiz.id}>
 									<TableCell className="font-medium">
-										<Link to={`/tests/awdawdwd`}>{quiz.title}</Link>
+										<Link to={`/quiz/${quiz.id}`}>{quiz.title}</Link>
 									</TableCell>
 									<TableCell className="font-medium">
 										До: {formatDate(quiz.expires)}

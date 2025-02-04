@@ -1,7 +1,12 @@
+import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { formatDate } from '@/helpers/formate-date'
+import { useUser } from '@/hooks/use-user'
+import { quizService } from '@/services/quiz.service'
+import { useQuery } from '@tanstack/react-query'
 import {
 	Calendar,
 	CalendarCheck,
@@ -16,13 +21,24 @@ import {
 	UserRoundCheck,
 	UserRoundX,
 } from 'lucide-react'
+import { Navigate, useParams } from 'react-router-dom'
 
-export const TestPage = () => {
-	// const { slug } = useParams<{ slug: string }>()
-	return (
+export const QuizPage = () => {
+	const { id } = useParams<{ id: string }>()
+	const { user } = useUser()
+	const { data, isLoading } = useQuery({
+		queryKey: ['getQuiz', id],
+		queryFn: () => quizService.fetchQuizById(String(id)),
+		select: ({ data }) => data,
+		enabled: !!id,
+	})
+
+	return isLoading ? (
+		<LoaderComponent />
+	) : data ? (
 		<>
 			<NavigationComponent
-				links={[{ url: '/', name: 'Тест по знании Географии мира' }]}
+				links={[{ url: `/quiz/${data.id}`, name: data.title }]}
 			/>
 			<section>
 				<div className="flex justify-between items-end py-4">
@@ -31,7 +47,7 @@ export const TestPage = () => {
 							<FolderPen size={16} />
 							Название теста
 						</small>
-						<span className="font-medium">Тест по знании Географии мира</span>
+						<span className="font-bold">{data?.title}</span>
 					</div>
 					<ul className="flex flex-col gap-1 items-end">
 						<li className="flex items-center gap-2">
@@ -39,7 +55,7 @@ export const TestPage = () => {
 								<Calendar size={14} />
 								Дата создания:
 							</small>
-							<span className="text-sm">20.01.25</span>
+							<span className="text-sm">{formatDate(data.createdAt)}</span>
 						</li>
 					</ul>
 				</div>
@@ -88,14 +104,14 @@ export const TestPage = () => {
 							<li className="flex items-center justify-between">
 								<small className="text-xs text-sky-600">Создал:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
-									Username
+									{user?.firstName}
 									<UserRound size={14} />
 								</span>
 							</li>
 							<li className="flex items-center justify-between">
 								<small className="text-xs text-sky-600">Активен до:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
-									25.01.25 / 11:30:00
+									{formatDate(data.expires)}
 									<CalendarCheck size={14} />
 								</span>
 							</li>
@@ -133,5 +149,7 @@ export const TestPage = () => {
 				</div>
 			</section>
 		</>
+	) : (
+		<Navigate to={'notfound'} />
 	)
 }
