@@ -4,9 +4,8 @@ import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { formatDate } from '@/helpers/formate-date'
+import { useFetchQuiz } from '@/hooks/fetch-quiz'
 import { useUser } from '@/hooks/use-user'
-import { quizService } from '@/services/quiz.service'
-import { useQuery } from '@tanstack/react-query'
 import {
 	Calendar,
 	CalendarCheck,
@@ -21,22 +20,24 @@ import {
 	UserRoundCheck,
 	UserRoundX,
 } from 'lucide-react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 export const QuizPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const { user } = useUser()
-	const { data, isLoading } = useQuery({
-		queryKey: ['getQuiz', id],
-		queryFn: () => quizService.fetchQuizById(String(id)),
-		select: ({ data }) => data,
-		enabled: !!id,
-	})
+	const navigate = useNavigate()
 
+	const { isLoading, data } = useFetchQuiz(id)
+
+	console.log(data)
 	return isLoading ? (
 		<LoaderComponent />
 	) : data ? (
 		<>
+			<Helmet>
+				<title>Тест - {data.title}</title>
+			</Helmet>
 			<NavigationComponent
 				links={[{ url: `/quiz/${data.id}`, name: data.title }]}
 			/>
@@ -136,7 +137,11 @@ export const QuizPage = () => {
 							Действия
 						</span>
 						<div className="flex items-center gap-2 justify-center">
-							<Button size={'sm'} variant={'outline'}>
+							<Button
+								size={'sm'}
+								variant={'outline'}
+								onClick={() => navigate(`/quiz/update/${data.id}`)}
+							>
 								<Pencil />
 								Редактировать
 							</Button>
@@ -150,6 +155,6 @@ export const QuizPage = () => {
 			</section>
 		</>
 	) : (
-		<Navigate to={'notfound'} />
+		<Navigate to={'/notfound'} />
 	)
 }

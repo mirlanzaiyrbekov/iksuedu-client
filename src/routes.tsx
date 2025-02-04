@@ -25,6 +25,10 @@ export const routes = createBrowserRouter([
 				element: <QuizPage />,
 			},
 			{
+				path: '/quiz/update/:id',
+				element: <UpdateTestPage />,
+			},
+			{
 				path: '/create',
 				element: <CreateTestPage />,
 			},

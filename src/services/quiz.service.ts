@@ -14,8 +14,8 @@ export const quizService = {
 
 	async updateQuiz(data: IQuizForm) {
 		return await apiBase<IApiResponse>({
-			url: '/quiz',
-			method: 'POST',
+			url: `/quiz/${data.id}`,
+			method: 'PATCH',
 			data,
 		})
 	},
