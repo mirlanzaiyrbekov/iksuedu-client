@@ -6,6 +6,7 @@ import { UpdateTestPage } from './pages/crud/update'
 import { HomePage } from './pages/home'
 import { NotFoundPage } from './pages/not-found'
 import { QuizPage } from './pages/quiz/quiz'
+import { QuizProcessPage } from './pages/quiz/quiz.process'
 
 export const routes = createBrowserRouter([
 	{
@@ -41,5 +42,9 @@ export const routes = createBrowserRouter([
 				element: <NotFoundPage />,
 			},
 		],
+	},
+	{
+		path: '/quiz/testing/:slug',
+		element: <QuizProcessPage />,
 	},
 ])

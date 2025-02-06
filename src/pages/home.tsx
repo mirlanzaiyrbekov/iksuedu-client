@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/table'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { calculateDate, formatDate } from '@/helpers/formate-date'
+import { useCopyClipBoard } from '@/hooks/use-copyClip-board'
 import { useUser } from '@/hooks/use-user'
 import { quizService } from '@/services/quiz.service'
 import { useQuery } from '@tanstack/react-query'
@@ -22,6 +23,7 @@ import { Link } from 'react-router-dom'
 
 export const HomePage = () => {
 	const { user } = useUser()
+	const handleCopy = useCopyClipBoard()
 
 	const { isLoading, data: quizes } = useQuery({
 		queryKey: [ALL_QUIZ],
@@ -80,12 +82,16 @@ export const HomePage = () => {
 										-Дней
 									</TableCell>
 									<TableCell className="font-medium">
-										<Button variant={'outline'} size={'sm'}>
+										<Button
+											variant={'outline'}
+											size={'sm'}
+											onClick={() => handleCopy(quiz.url)}
+										>
 											<LinkIcon />
 										</Button>
 									</TableCell>
 									<TableCell className="font-medium">
-										<QrCodeComponent />
+										<QrCodeComponent url={quiz.url} />
 									</TableCell>
 								</TableRow>
 							))

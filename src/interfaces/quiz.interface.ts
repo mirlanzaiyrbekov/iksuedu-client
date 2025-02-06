@@ -5,6 +5,7 @@ export interface IQuiz extends IBase {
 	title: string
 	expires: Date
 	teacher: IUser
+	url: string
 	questions: IQuizQuestions[]
 }
 

@@ -11,6 +11,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { toast } from '@/hooks/use-toast'
 import { useUser } from '@/hooks/use-user'
@@ -61,6 +62,7 @@ export const CreateTestPage = () => {
 					title: values.title,
 					teacherId: user.id,
 					expires: date,
+					urlAddress: `${QUIZ_UNIQUE_URL}/quiz/testing`,
 					questions: values.questions,
 				})
 			} else {

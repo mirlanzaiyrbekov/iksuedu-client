@@ -34,6 +34,13 @@ export const quizService = {
 		})
 	},
 
+	async fetchQuizByUrl(url: string) {
+		return await apiBase<IQuiz>({
+			url: `/quiz/url/${url}`,
+			method: 'GET',
+		})
+	},
+
 	async deleteQuiz(id?: string) {
 		return await apiBase<IApiResponse>({
 			url: `/quiz/${id}`,
