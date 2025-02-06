@@ -1,3 +1,4 @@
+import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
@@ -10,14 +11,23 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
+import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { calculateDate, formatDate } from '@/helpers/formate-date'
 import { useUser } from '@/hooks/use-user'
-import { Link as LinkIcon } from 'lucide-react'
+import { quizService } from '@/services/quiz.service'
+import { useQuery } from '@tanstack/react-query'
+import { LinkIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 export const HomePage = () => {
 	const { user } = useUser()
+
+	const { isLoading, data: quizes } = useQuery({
+		queryKey: [ALL_QUIZ],
+		queryFn: () => quizService.fetchAllUserQuiz(),
+		select: (data) => data.data,
+	})
 
 	return (
 		<>
@@ -45,8 +55,16 @@ export const HomePage = () => {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{user &&
-							user.tests.map((quiz) => (
+						{isLoading ? (
+							<TableRow>
+								<div className="min-h-36">
+									<LoaderComponent />
+								</div>
+							</TableRow>
+						) : (
+							user &&
+							quizes &&
+							quizes.map((quiz) => (
 								<TableRow key={quiz.id}>
 									<TableCell className="font-medium">
 										<Link to={`/quiz/${quiz.id}`}>{quiz.title}</Link>
@@ -70,7 +88,8 @@ export const HomePage = () => {
 										<QrCodeComponent />
 									</TableCell>
 								</TableRow>
-							))}
+							))
+						)}
 					</TableBody>
 				</Table>
 			</div>

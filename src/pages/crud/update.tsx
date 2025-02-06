@@ -13,6 +13,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { SINGLE_QUIZ } from '@/constants/request.keys.constants'
 import { useFetchQuiz } from '@/hooks/fetch-quiz'
 import { toast } from '@/hooks/use-toast'
 import { IQuizForm } from '@/interfaces/form.interface'
@@ -22,14 +23,12 @@ import { CopyPlus, Loader2, SaveAll } from 'lucide-react'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 export const UpdateTestPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const [date, setDate] = React.useState<Date | undefined>()
 	const { data: quiz, isLoading } = useFetchQuiz(id)
-
-	const navigate = useNavigate()
 	const queryClient = useQueryClient()
 
 	const { isPending, mutateAsync } = useMutation({
@@ -39,8 +38,7 @@ export const UpdateTestPage = () => {
 			toast({
 				title: response?.data?.message || 'Обновление успешно',
 			})
-			queryClient.invalidateQueries({ queryKey: ['getQuiz', quiz?.id] })
-			setTimeout(() => navigate(-1), 500)
+			queryClient.invalidateQueries({ queryKey: [SINGLE_QUIZ, quiz?.id] })
 		},
 		onError(error: any) {
 			toast({
@@ -80,11 +78,24 @@ export const UpdateTestPage = () => {
 	} = useFieldArray({
 		control: form.control,
 		name: 'questions',
+		keyName: 'id',
 	})
 
 	React.useEffect(() => {
 		if (quiz && quiz.expires) {
-			form.reset(quiz)
+			form.reset({
+				...quiz,
+				questions: quiz.questions.map((question) => ({
+					id: question.id,
+					customId: question.id,
+					content: question.content,
+					answers: question.answers.map((answer) => ({
+						...answer,
+						id: answer.id,
+						customId: answer.id,
+					})),
+				})),
+			})
 			setDate(quiz.expires)
 		}
 	}, [quiz, form])

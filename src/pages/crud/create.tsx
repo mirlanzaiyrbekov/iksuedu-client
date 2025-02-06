@@ -11,6 +11,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { toast } from '@/hooks/use-toast'
 import { useUser } from '@/hooks/use-user'
 import { IQuizForm } from '@/interfaces/form.interface'
@@ -43,7 +44,7 @@ export const CreateTestPage = () => {
 			toast({
 				title: `${data.message}`,
 			})
-			queryClient.invalidateQueries({ queryKey: ['getUser'] })
+			queryClient.invalidateQueries({ queryKey: [ALL_QUIZ] })
 			navigate(-1)
 		},
 		onError: (error) => {

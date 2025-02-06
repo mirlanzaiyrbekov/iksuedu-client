@@ -1,11 +1,17 @@
+import { DeleteButton } from '@/components/delete.button'
 import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { formatDate } from '@/helpers/formate-date'
 import { useFetchQuiz } from '@/hooks/fetch-quiz'
+import { toast } from '@/hooks/use-toast'
 import { useUser } from '@/hooks/use-user'
+import { useConfirm } from '@/hooks/useConfirm'
+import { quizService } from '@/services/quiz.service'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {
 	Calendar,
 	CalendarCheck,
@@ -15,7 +21,6 @@ import {
 	Pencil,
 	ShieldAlert,
 	SquareArrowOutUpRight,
-	Trash,
 	UserRound,
 	UserRoundCheck,
 	UserRoundX,
@@ -26,11 +31,45 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom'
 export const QuizPage = () => {
 	const { id } = useParams<{ id: string }>()
 	const { user } = useUser()
+	const { action } = useConfirm()
 	const navigate = useNavigate()
-
 	const { isLoading, data } = useFetchQuiz(id)
 
-	console.log(data)
+	const queryClient = useQueryClient()
+
+	const { mutateAsync } = useMutation({
+		mutationKey: ['deleteQuiz'],
+		mutationFn: (id?: string) => quizService.deleteQuiz(id),
+		onSuccess(response) {
+			toast({
+				title: response?.data?.message || 'Удалено успешно',
+			})
+			queryClient.invalidateQueries({ queryKey: [ALL_QUIZ] })
+			setTimeout(() => navigate('/'), 300)
+		},
+		onError(error: any) {
+			toast({
+				title:
+					error?.response?.data?.message ||
+					error.message ||
+					'Ошибка при удалении',
+			})
+		},
+	})
+
+	const deleteHandle = () => {
+		action({
+			handleConfirm: async () => {
+				try {
+					await mutateAsync(data?.id)
+				} catch (error) {
+					toast({
+						title: String(error) || 'Ошибка при обновлении',
+					})
+				}
+			},
+		})
+	}
 	return isLoading ? (
 		<LoaderComponent />
 	) : data ? (
@@ -145,10 +184,7 @@ export const QuizPage = () => {
 								<Pencil />
 								Редактировать
 							</Button>
-							<Button size={'sm'} variant={'outline'}>
-								<Trash />
-								Удалить
-							</Button>
+							<DeleteButton onClick={deleteHandle}>Удалить</DeleteButton>
 						</div>
 					</div>
 				</div>

@@ -20,10 +20,38 @@ export const quizService = {
 		})
 	},
 
+	async fetchAllUserQuiz() {
+		return await apiBase<IQuiz[]>({
+			url: `/quiz`,
+			method: 'GET',
+		})
+	},
+
 	async fetchQuizById(id: string) {
 		return await apiBase<IQuiz>({
 			url: `/quiz/${id}`,
 			method: 'GET',
+		})
+	},
+
+	async deleteQuiz(id?: string) {
+		return await apiBase<IApiResponse>({
+			url: `/quiz/${id}`,
+			method: 'DELETE',
+		})
+	},
+
+	async deleteQuestion(id?: string) {
+		return await apiBase<IApiResponse>({
+			url: `/quiz/question/${id}`,
+			method: 'DELETE',
+		})
+	},
+
+	async deleteAnswer(id?: string) {
+		return await apiBase<IApiResponse>({
+			url: `/quiz/question/answer/${id}`,
+			method: 'DELETE',
 		})
 	},
 }

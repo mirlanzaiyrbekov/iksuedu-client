@@ -9,11 +9,13 @@ export interface IAnswer {
 	id?: string
 	content?: string
 	isCorrect?: boolean
+	customId?: string
 }
 export interface IQuestion {
 	id?: string
 	content?: string
 	answers?: IAnswer[]
+	customId?: string
 }
 export interface IQuizForm {
 	id?: string

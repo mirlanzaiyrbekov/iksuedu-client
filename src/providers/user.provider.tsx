@@ -1,3 +1,4 @@
+import { USER_PROFILE } from '@/constants/request.keys.constants'
 import { UserContext } from '@/context/user.context'
 import { AuthEnum } from '@/enum/auth.enum'
 import { UserEnum } from '@/enum/user.enum'
@@ -24,7 +25,7 @@ export const UserProvider: React.FC<React.PropsWithChildren> = ({
 	const { isAuth } = useAuth()
 
 	const { data } = useQuery({
-		queryKey: ['getUser'],
+		queryKey: [USER_PROFILE],
 		queryFn: () => userService.fetchUserProfile(),
 		select: (data) => data.data,
 		enabled: !!isAuth,
@@ -43,7 +44,7 @@ export const UserProvider: React.FC<React.PropsWithChildren> = ({
 		removeFromStorage(AuthEnum.IS_AUTHENTIFICATION)
 		setAuthHandle()
 		setUser(undefined)
-		queryClient.invalidateQueries({ queryKey: ['getUserProfile'] })
+		queryClient.invalidateQueries({ queryKey: [USER_PROFILE] })
 	}
 
 	return (
