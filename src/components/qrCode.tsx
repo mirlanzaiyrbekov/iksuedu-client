@@ -29,7 +29,10 @@ export const QrCodeComponent: React.FC<IQrCodeComponentProps> = ({ url }) => {
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Отсканируйте QR код.</DialogTitle>
-					<DialogDescription className="flex items-center justify-center py-10">
+					<DialogDescription
+						asChild
+						className="flex items-center justify-center py-10"
+					>
 						<div className="flex flex-col gap-3 justify-center">
 							<div className="border border-gray-200 p-4 rounded-md">
 								<QRCode value={url} className="w-32 h-32" />

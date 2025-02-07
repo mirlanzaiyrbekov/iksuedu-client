@@ -1,3 +1,4 @@
+import { CopyClipBoard } from '@/components/copy.button'
 import { DeleteButton } from '@/components/delete.button'
 import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
@@ -17,7 +18,6 @@ import {
 	CalendarCheck,
 	ChartLine,
 	FolderPen,
-	LinkIcon,
 	Pencil,
 	ShieldAlert,
 	SquareArrowOutUpRight,
@@ -70,6 +70,7 @@ export const QuizPage = () => {
 			},
 		})
 	}
+
 	return isLoading ? (
 		<LoaderComponent />
 	) : data ? (
@@ -164,10 +165,7 @@ export const QuizPage = () => {
 						</span>
 						<div className="flex items-center gap-2 justify-center">
 							<QrCodeComponent url={data.url} />
-							<Button variant={'outline'} size={'sm'}>
-								<LinkIcon />
-								Скопировать ссылку
-							</Button>
+							<CopyClipBoard content={data.url} />
 						</div>
 					</div>
 					<div className="flex flex-col gap-5 border rounded-md p-2">

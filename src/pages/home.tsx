@@ -1,7 +1,7 @@
+import { CopyClipBoard } from '@/components/copy.button'
 import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
-import { Button } from '@/components/ui/button'
 import {
 	Table,
 	TableBody,
@@ -13,17 +13,14 @@ import {
 } from '@/components/ui/table'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { calculateDate, formatDate } from '@/helpers/formate-date'
-import { useCopyClipBoard } from '@/hooks/use-copyClip-board'
 import { useUser } from '@/hooks/use-user'
 import { quizService } from '@/services/quiz.service'
 import { useQuery } from '@tanstack/react-query'
-import { LinkIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 export const HomePage = () => {
 	const { user } = useUser()
-	const handleCopy = useCopyClipBoard()
 
 	const { isLoading, data: quizes } = useQuery({
 		queryKey: [ALL_QUIZ],
@@ -82,13 +79,7 @@ export const HomePage = () => {
 										-Дней
 									</TableCell>
 									<TableCell className="font-medium">
-										<Button
-											variant={'outline'}
-											size={'sm'}
-											onClick={() => handleCopy(quiz.url)}
-										>
-											<LinkIcon />
-										</Button>
+										<CopyClipBoard content={quiz.url} />
 									</TableCell>
 									<TableCell className="font-medium">
 										<QrCodeComponent url={quiz.url} />
