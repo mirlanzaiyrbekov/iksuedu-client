@@ -163,7 +163,7 @@ export const QuizPage = () => {
 							Ссылка
 						</span>
 						<div className="flex items-center gap-2 justify-center">
-							<QrCodeComponent />
+							<QrCodeComponent url={data.url} />
 							<Button variant={'outline'} size={'sm'}>
 								<LinkIcon />
 								Скопировать ссылку
