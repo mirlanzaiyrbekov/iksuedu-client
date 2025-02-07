@@ -22,9 +22,11 @@ export const QuestionForm: React.FC<IQuestionFormProps> = ({
 	control,
 	questions,
 	remove,
+	formType,
 }) => {
 	const queryClient = useQueryClient()
 	const { action } = useConfirm()
+
 	const { mutateAsync } = useMutation({
 		mutationKey: ['deleteQuestion'],
 		mutationFn: (id?: string) => quizService.deleteQuestion(id),
@@ -45,18 +47,23 @@ export const QuestionForm: React.FC<IQuestionFormProps> = ({
 	})
 
 	const deleteHandle = (id?: string, questionIndex?: number) => {
-		action({
-			handleConfirm: async () => {
-				try {
-					await mutateAsync(id)
-					remove(questionIndex)
-				} catch (error) {
-					toast({
-						title: `${String(error)}`,
-					})
-				}
-			},
-		})
+		switch (formType) {
+			case 'CREATE':
+				return remove(questionIndex)
+			case 'UPDATE':
+				return action({
+					handleConfirm: async () => {
+						try {
+							await mutateAsync(id)
+							remove(questionIndex)
+						} catch (error) {
+							toast({
+								title: `${String(error)}`,
+							})
+						}
+					},
+				})
+		}
 	}
 
 	return (
@@ -95,7 +102,11 @@ export const QuestionForm: React.FC<IQuestionFormProps> = ({
 								</DeleteButton>
 							</div>
 
-							<AnswerForm control={control} questionIndex={questionIndex} />
+							<AnswerForm
+								control={control}
+								questionIndex={questionIndex}
+								formType={formType}
+							/>
 						</div>
 					)
 				})}

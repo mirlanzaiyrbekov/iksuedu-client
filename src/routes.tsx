@@ -38,13 +38,13 @@ export const routes = createBrowserRouter([
 				element: <UpdateTestPage />,
 			},
 			{
+				path: '/quiz/testing/:url',
+				element: <QuizProcessPage />,
+			},
+			{
 				path: '/*',
 				element: <NotFoundPage />,
 			},
 		],
-	},
-	{
-		path: '/quiz/testing/:slug',
-		element: <QuizProcessPage />,
 	},
 ])

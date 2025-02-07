@@ -11,6 +11,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table'
+import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { calculateDate, formatDate } from '@/helpers/formate-date'
 import { useUser } from '@/hooks/use-user'
@@ -56,9 +57,11 @@ export const HomePage = () => {
 					<TableBody>
 						{isLoading ? (
 							<TableRow>
-								<div className="min-h-36">
-									<LoaderComponent />
-								</div>
+								<TableCell>
+									<div className="min-h-36">
+										<LoaderComponent />
+									</div>
+								</TableCell>
 							</TableRow>
 						) : (
 							user &&
@@ -79,10 +82,14 @@ export const HomePage = () => {
 										-Дней
 									</TableCell>
 									<TableCell className="font-medium">
-										<CopyClipBoard content={quiz.url} />
+										<CopyClipBoard
+											content={`${QUIZ_UNIQUE_URL}/quiz/testing/${quiz.url}`}
+										/>
 									</TableCell>
 									<TableCell className="font-medium">
-										<QrCodeComponent url={quiz.url} />
+										<QrCodeComponent
+											url={`${QUIZ_UNIQUE_URL}/quiz/testing/${quiz.url}`}
+										/>
 									</TableCell>
 								</TableRow>
 							))

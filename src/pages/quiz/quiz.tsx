@@ -5,6 +5,7 @@ import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { formatDate } from '@/helpers/formate-date'
 import { useFetchQuiz } from '@/hooks/fetch-quiz'
@@ -129,7 +130,7 @@ export const QuizPage = () => {
 									Общее число сдавщих:
 								</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
-									132
+									{data.defendants.length}
 									<UserRoundCheck size={14} />
 								</span>
 							</li>
@@ -164,8 +165,12 @@ export const QuizPage = () => {
 							Ссылка
 						</span>
 						<div className="flex items-center gap-2 justify-center">
-							<QrCodeComponent url={data.url} />
-							<CopyClipBoard content={data.url} />
+							<QrCodeComponent
+								url={`${QUIZ_UNIQUE_URL}/quiz/testing/${data.url}`}
+							/>
+							<CopyClipBoard
+								content={`${QUIZ_UNIQUE_URL}/quiz/testing/${data.url}`}
+							/>
 						</div>
 					</div>
 					<div className="flex flex-col gap-5 border rounded-md p-2">

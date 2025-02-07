@@ -22,7 +22,6 @@ export interface IQuizForm {
 	title?: string
 	expires?: Date | undefined
 	teacherId?: string
-	urlAddress?: string
 	questions?: IQuestion[]
 }
 export interface IQuestionFormProps {
@@ -30,4 +29,5 @@ export interface IQuestionFormProps {
 	control: Control<IQuizForm> // Контрол формы
 	remove: UseFieldArrayRemove // Функция для удаления вопросов
 	append: UseFieldArrayAppend<IQuizForm, 'questions'> // Функция для добавления вопросов
+	formType: 'CREATE' | 'UPDATE'
 }

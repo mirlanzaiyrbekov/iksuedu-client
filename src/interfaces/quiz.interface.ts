@@ -7,6 +7,15 @@ export interface IQuiz extends IBase {
 	teacher: IUser
 	url: string
 	questions: IQuizQuestions[]
+	defendants: IDefendand[]
+}
+
+export interface IDefendand extends IBase {
+	firstName: string
+	lastName: string
+	email: string
+	school: string
+	tests: IQuiz[]
 }
 
 export interface IQuizQuestions extends IBase {
@@ -16,4 +25,5 @@ export interface IQuizQuestions extends IBase {
 
 export interface IQuizQuestionsAnswers extends IBase {
 	content: string
+	isCorrect: boolean
 }

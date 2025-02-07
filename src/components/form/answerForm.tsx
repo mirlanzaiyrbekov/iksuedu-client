@@ -18,7 +18,8 @@ import { Label } from '../ui/label'
 export const AnswerForm: React.FC<{
 	control: Control<IQuizForm>
 	questionIndex: number
-}> = ({ control, questionIndex }) => {
+	formType: 'CREATE' | 'UPDATE'
+}> = ({ control, questionIndex, formType }) => {
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: `questions.${questionIndex}.answers`,
@@ -48,18 +49,23 @@ export const AnswerForm: React.FC<{
 	})
 
 	const deleteHandle = (id?: string, questionIndex?: number) => {
-		action({
-			handleConfirm: async () => {
-				try {
-					await mutateAsync(id)
-					remove(questionIndex)
-				} catch (error) {
-					toast({
-						title: `${String(error)}`,
-					})
-				}
-			},
-		})
+		switch (formType) {
+			case 'CREATE':
+				return remove(questionIndex)
+			case 'UPDATE':
+				return action({
+					handleConfirm: async () => {
+						try {
+							await mutateAsync(id)
+							remove(questionIndex)
+						} catch (error) {
+							toast({
+								title: `${String(error)}`,
+							})
+						}
+					},
+				})
+		}
 	}
 
 	return (

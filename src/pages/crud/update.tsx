@@ -152,6 +152,7 @@ export const UpdateTestPage = () => {
 								</div>
 							</div>
 							<QuestionForm
+								formType="UPDATE"
 								control={form.control}
 								questions={questions}
 								append={append}
