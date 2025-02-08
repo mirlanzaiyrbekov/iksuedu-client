@@ -1,8 +1,9 @@
 import { IQuiz } from '@/interfaces/quiz.interface'
-import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export const usePagination = (data: IQuiz[]) => {
-	const [currentPage, setCurrentPage] = React.useState(0)
+	const [searchParams, setSearchParams] = useSearchParams()
+	const currentPage = parseInt(searchParams.get('page') || '1', 10) - 1
 	const itemsPerPage = 4
 
 	const offset = currentPage * itemsPerPage
@@ -10,7 +11,7 @@ export const usePagination = (data: IQuiz[]) => {
 	const pageCount = Math.ceil((data?.length || 0) / itemsPerPage)
 
 	const handlePageChange = ({ selected }: { selected: number }) => {
-		setCurrentPage(selected)
+		setSearchParams({ page: (selected + 1).toString() })
 	}
 
 	return {
