@@ -90,7 +90,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 									<Input placeholder="E-mail: example@gmail.com" {...field} />
 								</FormControl>
 								<FormDescription className="hidden" />
-								<FormMessage className="text-xs absolute -bottom-4 right-0" />
+								<FormMessage className="text-xs" />
 							</FormItem>
 						)}
 					/>
@@ -114,7 +114,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 									{!inputType ? <Eye size={16} /> : <EyeOff size={16} />}
 								</div>
 								<FormDescription className="hidden" />
-								<FormMessage className="text-xs absolute -bottom-4 right-0" />
+								<FormMessage className="text-xs" />
 							</FormItem>
 						)}
 					/>

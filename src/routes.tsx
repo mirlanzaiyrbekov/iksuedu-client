@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import { PrivateRoute } from './components/private.route'
 import { Layout } from './layout/layout'
 import { AuthPage } from './pages/auth'
 import { CreateTestPage } from './pages/crud/create'
@@ -15,7 +16,7 @@ export const routes = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <HomePage />,
+				element: <PrivateRoute children={<HomePage />} />,
 			},
 			{
 				path: '/auth',
@@ -23,19 +24,19 @@ export const routes = createBrowserRouter([
 			},
 			{
 				path: '/quiz/:id',
-				element: <QuizPage />,
+				element: <PrivateRoute children={<QuizPage />} />,
 			},
 			{
 				path: '/quiz/update/:id',
-				element: <UpdateTestPage />,
+				element: <PrivateRoute children={<UpdateTestPage />} />,
 			},
 			{
 				path: '/create',
-				element: <CreateTestPage />,
+				element: <PrivateRoute children={<CreateTestPage />} />,
 			},
 			{
 				path: '/update',
-				element: <UpdateTestPage />,
+				element: <PrivateRoute children={<UpdateTestPage />} />,
 			},
 			{
 				path: '/quiz/testing/:url',

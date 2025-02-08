@@ -80,7 +80,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 										<Input placeholder="Имя" {...field} />
 									</FormControl>
 									<FormDescription className="hidden" />
-									<FormMessage className="text-xs absolute -bottom-4 right-0" />
+									<FormMessage className="text-xs" />
 								</FormItem>
 							)}
 						/>
@@ -94,7 +94,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 										<Input placeholder="Фамилия" {...field} />
 									</FormControl>
 									<FormDescription className="hidden" />
-									<FormMessage className="text-xs absolute -bottom-4 right-0" />
+									<FormMessage className="text-xs" />
 								</FormItem>
 							)}
 						/>
@@ -111,7 +111,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 										<Input placeholder="E-mail: example@gmail.com" {...field} />
 									</FormControl>
 									<FormDescription className="hidden" />
-									<FormMessage className="text-xs absolute -bottom-4 right-0" />
+									<FormMessage className="text-xs" />
 								</FormItem>
 							)}
 						/>
@@ -125,7 +125,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 										<Input placeholder="Пароль" {...field} />
 									</FormControl>
 									<FormDescription className="hidden" />
-									<FormMessage className="text-xs absolute -bottom-4 right-0" />
+									<FormMessage className="text-xs" />
 								</FormItem>
 							)}
 						/>
