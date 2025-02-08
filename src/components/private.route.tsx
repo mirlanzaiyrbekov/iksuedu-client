@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/useAuth'
+import { useUser } from '@/hooks/use-user'
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
@@ -8,8 +8,8 @@ interface IPrivateRouteProps {
 export const PrivateRoute: React.FC<
 	React.PropsWithChildren<IPrivateRouteProps>
 > = ({ children, isPublic }) => {
-	const { isAuth } = useAuth()
+	const { user } = useUser()
 
-	if (!isPublic && !isAuth) return <Navigate to={'/notfound'} />
+	if (!isPublic && !user) return <Navigate to={'/notfound'} />
 	return children
 }

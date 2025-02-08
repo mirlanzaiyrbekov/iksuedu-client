@@ -174,9 +174,11 @@ export const QuizPage = () => {
 						</span>
 						<div className="flex items-center gap-2 justify-center">
 							<QrCodeComponent
+								expire={data.expires}
 								url={`${QUIZ_UNIQUE_URL}/quiz/testing/${data.url}`}
 							/>
 							<CopyClipBoard
+								expire={data.expires}
 								content={`${QUIZ_UNIQUE_URL}/quiz/testing/${data.url}`}
 							/>
 						</div>

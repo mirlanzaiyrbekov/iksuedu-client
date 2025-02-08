@@ -1,4 +1,4 @@
-import { intervalToDuration } from 'date-fns'
+import { differenceInDays } from 'date-fns'
 
 export function formatDate(isoDateString: Date) {
 	const date = new Date(isoDateString)
@@ -16,7 +16,21 @@ export function formatDate(isoDateString: Date) {
 export const calculateDate = (startDate: Date, endDate: Date) => {
 	const start = new Date(startDate)
 	const end = new Date(endDate)
-	const duration = intervalToDuration({ start, end })
 
-	return duration.days
+	// Проверяем, если дата уже прошла, то возвращаем 0
+	if (end < new Date()) return 'Не активен'
+
+	// Альтернативный вариант вычисления разницы в днях
+	const daysLeft = differenceInDays(end, start)
+
+	return daysLeft > 0 ? daysLeft : 0
+}
+
+export const expireDate = (date: Date) => {
+	const now = new Date()
+
+	if (date < now) {
+		return true
+	}
+	return false
 }

@@ -6,6 +6,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
+import { useExpiredDate } from '@/hooks/use-expired-date'
 import { QrCode, Share2 } from 'lucide-react'
 import QRCode from 'react-qr-code'
 import {
@@ -17,11 +18,17 @@ import {
 
 interface IQrCodeComponentProps {
 	url: string
+	expire: Date
 }
-export const QrCodeComponent: React.FC<IQrCodeComponentProps> = ({ url }) => {
+export const QrCodeComponent: React.FC<IQrCodeComponentProps> = ({
+	url,
+	expire,
+}) => {
+	const { inActive } = useExpiredDate(expire)
+
 	return (
 		<Dialog>
-			<DialogTrigger>
+			<DialogTrigger disabled={inActive}>
 				<div className="border p-1 rounded-sm">
 					<QrCode />
 				</div>

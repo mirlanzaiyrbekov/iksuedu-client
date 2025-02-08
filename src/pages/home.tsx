@@ -1,4 +1,5 @@
 import { CopyClipBoard } from '@/components/copy.button'
+import { ExpireDateComponent } from '@/components/expire.date'
 import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
@@ -13,7 +14,7 @@ import {
 } from '@/components/ui/table'
 import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
-import { calculateDate, formatDate } from '@/helpers/formate-date'
+import { formatDate } from '@/helpers/formate-date'
 import { useUser } from '@/hooks/use-user'
 import { quizService } from '@/services/quiz.service'
 import { useQuery } from '@tanstack/react-query'
@@ -78,16 +79,17 @@ export const HomePage = () => {
 										{formatDate(quiz.createdAt)}
 									</TableCell>
 									<TableCell className="font-medium">
-										{calculateDate(quiz.createdAt, quiz.expires)}
-										-Дней
+										<ExpireDateComponent date={quiz.expires} />
 									</TableCell>
 									<TableCell className="font-medium">
 										<CopyClipBoard
+											expire={quiz.expires}
 											content={`${QUIZ_UNIQUE_URL}/quiz/testing/${quiz.url}`}
 										/>
 									</TableCell>
 									<TableCell className="font-medium">
 										<QrCodeComponent
+											expire={quiz.expires}
 											url={`${QUIZ_UNIQUE_URL}/quiz/testing/${quiz.url}`}
 										/>
 									</TableCell>
