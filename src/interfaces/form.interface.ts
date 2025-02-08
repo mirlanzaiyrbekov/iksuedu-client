@@ -22,6 +22,7 @@ export interface IQuizForm {
 	title?: string
 	expires?: Date | undefined
 	teacherId?: string
+	passedScore?: string
 	questions?: IQuestion[]
 }
 export interface IQuestionFormProps {

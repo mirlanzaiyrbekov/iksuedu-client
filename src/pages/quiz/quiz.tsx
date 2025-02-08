@@ -20,6 +20,7 @@ import {
 	ChartLine,
 	FolderPen,
 	Pencil,
+	Percent,
 	ShieldAlert,
 	SquareArrowOutUpRight,
 	UserRound,
@@ -114,14 +115,14 @@ export const QuizPage = () => {
 							<li className="flex items-center justify-between">
 								<small className="text-xs text-sky-600">Сдавщих:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
-									102
+									{data.passed}
 									<UserRoundCheck size={14} />
 								</span>
 							</li>
 							<li className="flex items-center justify-between">
 								<small className="text-xs text-sky-600">Не сдавщих:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
-									30
+									{data.didNotPass}
 									<UserRoundX size={14} />
 								</span>
 							</li>
@@ -155,6 +156,13 @@ export const QuizPage = () => {
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{formatDate(data.expires)}
 									<CalendarCheck size={14} />
+								</span>
+							</li>
+							<li className="flex items-center justify-between">
+								<small className="text-xs text-sky-600">Проходной бал:</small>
+								<span className="text-sm flex items-center gap-2 font-medium">
+									{data.passedScore}
+									<Percent size={14} />
 								</span>
 							</li>
 						</ul>

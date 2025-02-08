@@ -6,6 +6,9 @@ export interface IQuiz extends IBase {
 	expires: Date
 	teacher: IUser
 	url: string
+	passed: number
+	didNotPass: number
+	passedScore: number
 	questions: IQuizQuestions[]
 	defendants: IDefendand[]
 }

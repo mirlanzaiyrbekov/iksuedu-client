@@ -31,6 +31,7 @@ export const CreateTestPage = () => {
 	const form = useForm<IQuizForm>({
 		defaultValues: {
 			title: '',
+			passedScore: '',
 			questions: [
 				{ content: '', answers: [{ content: '', isCorrect: false }] },
 			],
@@ -59,6 +60,7 @@ export const CreateTestPage = () => {
 			if (user && date) {
 				await mutateAsync({
 					title: values.title,
+					passedScore: values.passedScore,
 					teacherId: user.id,
 					expires: date,
 					questions: values.questions,
@@ -110,14 +112,30 @@ export const CreateTestPage = () => {
 											<Input placeholder="Название теста" {...field} />
 										</FormControl>
 										<FormDescription className="hidden" />
-										<FormMessage className="text-xs absolute -bottom-4 right-0" />
+										<FormMessage className="text-xs " />
 									</FormItem>
 								)}
 							/>
-							<div className="flex items-center gap-1">
-								<div className="flex flex-col gap-2.5">
-									<span className="text-xs font-medium">Срок истечения</span>
-									<SelectData date={date} setDate={setDate} />
+							<div className="flex items-baseline gap-1.5">
+								<FormField
+									control={form.control}
+									name="passedScore"
+									render={({ field }) => (
+										<FormItem className="relative w-full">
+											<FormLabel className="text-xs">Проходной бал</FormLabel>
+											<FormControl>
+												<Input placeholder="Пример: 60" {...field} />
+											</FormControl>
+											<FormDescription className="hidden" />
+											<FormMessage className="text-xs " />
+										</FormItem>
+									)}
+								/>
+								<div className="flex items-center gap-1">
+									<div className="flex flex-col gap-[11px]">
+										<span className="text-xs font-medium">Срок истечения</span>
+										<SelectData date={date} setDate={setDate} />
+									</div>
 								</div>
 							</div>
 							<QuestionForm

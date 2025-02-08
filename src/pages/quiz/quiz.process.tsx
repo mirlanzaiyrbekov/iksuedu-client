@@ -8,7 +8,14 @@ import { toast } from '@/hooks/use-toast'
 import { IQuizResponse } from '@/interfaces/api.response.interface'
 import { quizService } from '@/services/quiz.service'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Check, CircleHelp, X } from 'lucide-react'
+import {
+	Ban,
+	Check,
+	CircleCheck,
+	CircleHelp,
+	SendHorizonal,
+	X,
+} from 'lucide-react'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Navigate, useParams } from 'react-router-dom'
@@ -67,26 +74,48 @@ export const QuizProcessPage = () => {
 			{!access ? (
 				<QuizProccessAuth data={data} setAccess={setAccess} />
 			) : (
-				<div className="flex items-center justify-center p-10">
+				<div className="flex flex-col items-center gap-2 p-10">
+					{results?.success ? (
+						<div className="rounded-md flex items-center justify-center p-2 bg-muted/80">
+							<ul className="flex items-center gap-2">
+								<li className="flex items-center gap-2">
+									<small className="text-xs text-sky-600">
+										Правильных ответов:
+									</small>
+									<span className="text-sm">{results?.correctAnswers}</span>
+								</li>
+								<li className="flex items-center gap-2">
+									<small className="text-xs text-sky-600">
+										Процент точности:
+									</small>
+									<span className="text-sm">{Math.round(results?.score)}%</span>
+								</li>
+								<li className="flex items-center gap-2">
+									<small className="text-xs text-sky-600">
+										Всего вопросов:
+									</small>
+									<span className="text-sm">{results?.totalQuestions}</span>
+								</li>
+								<li className="flex items-center gap-2">
+									<small className="text-xs text-sky-600">
+										Результаты теста:
+									</small>
+									{!results.passed ? (
+										<span className="text-sm text-red-600 font-medium flex items-center gap-1.5">
+											<Ban size={14} />
+											Вы не прошли тестирование
+										</span>
+									) : (
+										<span className="text-sm text-green-600 font-medium flex items-center gap-1.5">
+											<CircleCheck size={14} />
+											Вы успешно прошли тестирование
+										</span>
+									)}
+								</li>
+							</ul>
+						</div>
+					) : null}
 					<div className="max-w-2xl border rounded-md p-5 w-full flex items-center flex-col gap-4">
-						{results?.success ? (
-							<div className="flex items-center justify-center p-2">
-								<ul className="flex flex-col gap-2">
-									<li className="flex items-center gap-2">
-										<small>Правильных ответов:</small>
-										<span>{results?.correctAnswers}</span>
-									</li>
-									<li className="flex items-center gap-2">
-										<small>Процент точности:</small>
-										<span>{Math.round(results?.score)}%</span>
-									</li>
-									<li className="flex items-center gap-2">
-										<small>Всего вопросов:</small>
-										<span>{results?.totalQuestions}</span>
-									</li>
-								</ul>
-							</div>
-						) : null}
 						{data.questions.map((question, index) => (
 							<ul
 								key={question.id}
@@ -145,7 +174,8 @@ export const QuizProcessPage = () => {
 							disabled={isPending || results?.success}
 							onClick={submitAnswers}
 						>
-							Отправить
+							<SendHorizonal size={14} />
+							Отправить ответы
 						</Button>
 					</div>
 				</div>
