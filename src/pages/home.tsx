@@ -2,6 +2,7 @@ import { CopyClipBoard } from '@/components/copy.button'
 import { ExpireDateComponent } from '@/components/expire.date'
 import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
+import { PaginateComponent } from '@/components/paginate'
 import { QrCodeComponent } from '@/components/qrCode'
 import {
 	Table,
@@ -15,6 +16,7 @@ import {
 import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { formatDate } from '@/helpers/formate-date'
+import { usePagination } from '@/hooks/use-pagination'
 import { useUser } from '@/hooks/use-user'
 import { quizService } from '@/services/quiz.service'
 import { useQuery } from '@tanstack/react-query'
@@ -29,6 +31,10 @@ export const HomePage = () => {
 		queryFn: () => quizService.fetchAllUserQuiz(),
 		select: (data) => data.data,
 	})
+
+	const { handlePageChange, pageCount, currentQuizzes } = usePagination(
+		quizes || []
+	)
 
 	return (
 		<>
@@ -66,8 +72,8 @@ export const HomePage = () => {
 							</TableRow>
 						) : (
 							user &&
-							quizes &&
-							quizes.map((quiz) => (
+							currentQuizzes &&
+							currentQuizzes.map((quiz) => (
 								<TableRow key={quiz.id}>
 									<TableCell className="font-medium">
 										<Link to={`/quiz/${quiz.id}`}>{quiz.title}</Link>
@@ -98,6 +104,10 @@ export const HomePage = () => {
 						)}
 					</TableBody>
 				</Table>
+				<PaginateComponent
+					pageCount={pageCount}
+					handlePageChange={handlePageChange}
+				/>
 			</div>
 		</>
 	)
