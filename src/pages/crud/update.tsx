@@ -85,12 +85,14 @@ export const UpdateTestPage = () => {
 		if (quiz && quiz.expires) {
 			form.reset({
 				...quiz,
+				passedScore: String(quiz.passedScore) || '',
 				questions: quiz.questions.map((question) => ({
 					id: question.id,
 					customId: question.id,
 					content: question.content,
 					answers: question.answers.map((answer) => ({
 						...answer,
+
 						id: answer.id,
 						customId: answer.id,
 					})),
@@ -145,10 +147,26 @@ export const UpdateTestPage = () => {
 									</FormItem>
 								)}
 							/>
-							<div className="flex items-center gap-1">
-								<div className="flex flex-col gap-2.5">
-									<span className="text-xs font-medium">Срок истечения</span>
-									<SelectData date={date} setDate={setDate} />
+							<div className="flex items-baseline gap-1.5">
+								<FormField
+									control={form.control}
+									name="passedScore"
+									render={({ field }) => (
+										<FormItem className="relative w-full">
+											<FormLabel className="text-xs">Проходной бал</FormLabel>
+											<FormControl>
+												<Input placeholder="Пример: 60" {...field} />
+											</FormControl>
+											<FormDescription className="hidden" />
+											<FormMessage className="text-xs " />
+										</FormItem>
+									)}
+								/>
+								<div className="flex items-center gap-1">
+									<div className="flex flex-col gap-[11px]">
+										<span className="text-xs font-medium">Срок истечения</span>
+										<SelectData date={date} setDate={setDate} />
+									</div>
 								</div>
 							</div>
 							<QuestionForm
