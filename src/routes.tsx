@@ -20,7 +20,7 @@ export const routes = createBrowserRouter([
 			},
 			{
 				path: '/auth',
-				element: <AuthPage />,
+				element: <PrivateRoute children={<AuthPage />} isPublic />,
 			},
 			{
 				path: '/quiz/:id',

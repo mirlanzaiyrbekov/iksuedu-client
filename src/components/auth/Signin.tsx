@@ -59,7 +59,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 					saveToStorage(AuthEnum.IS_AUTHENTIFICATION, 'true')
 					saveToStorage(AuthEnum.ACCESS_TOKEN, data.access_token)
 					setAuthHandle()
-					navigate('/')
+					setTimeout(() => navigate('/'), 500)
 				},
 			})
 		} catch (error) {
