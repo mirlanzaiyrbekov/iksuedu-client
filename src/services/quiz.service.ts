@@ -23,7 +23,12 @@ export const quizService = {
 		})
 	},
 
-	async quizProcess(data: any) {
+	/**
+	 *
+	 * @param data
+	 * @description PROCESS QUIZ
+	 */
+	async processQuiz(data: any) {
 		return await apiBase<IQuizResponse>({
 			url: `/quiz/process`,
 			method: 'POST',

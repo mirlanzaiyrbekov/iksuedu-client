@@ -4,6 +4,10 @@ export const Footer = () => {
 		<>
 			<div className="px-12 py-4 flex items-center justify-between">
 				<ul className="flex items-center gap-2">
+					<li className="flex items-center gap-1">
+						<small className="text-xs">&copy;</small>
+						<span className="text-sky-500 text-[12px]">{dateNow}</span>
+					</li>
 					<li className="flex items-center gap-2">
 						<small className="text-[10px]">
 							Developed at the initiative of
@@ -11,10 +15,6 @@ export const Footer = () => {
 						<span className="text-sky-500 text-[12px] ">
 							Saltanat Japarova.
 						</span>
-					</li>
-					<li className="flex items-center gap-1">
-						<small className="text-xs">&copy;</small>
-						<span className="text-sky-500 text-[12px]">{dateNow}</span>
 					</li>
 				</ul>
 

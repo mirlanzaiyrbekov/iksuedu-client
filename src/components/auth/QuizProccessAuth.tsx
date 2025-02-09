@@ -81,8 +81,8 @@ export const QuizProccessAuth: React.FC<IQuizProccessAuthProps> = ({
 
 	return (
 		<div className="flex flex-col items-center py-8">
-			<div className="max-w-md w-full flex flex-col items-center gap-3">
-				<span>
+			<div className="flex flex-col items-center gap-3">
+				<span className="text-sky-900 font-medium my-4">
 					<q>{data.title}</q>
 				</span>
 			</div>

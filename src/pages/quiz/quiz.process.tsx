@@ -21,21 +21,24 @@ import { Helmet } from 'react-helmet-async'
 import { Navigate, useParams } from 'react-router-dom'
 
 export const QuizProcessPage = () => {
+	const { url } = useParams<{ url: string }>()
+
+	if (!url) return <Navigate to={'/notfound'} />
+
 	const [defendantId, setDefendantId] = React.useState('')
 	const [access, setAccess] = React.useState(false)
 	const [answers, setAnswers] = React.useState<Record<string, string>>({})
 	const [results, setResults] = React.useState<IQuizResponse>()
 
-	const { url } = useParams<{ url: string }>()
-
 	const { isPending, mutateAsync } = useMutation({
-		mutationKey: ['quizResults'],
-		mutationFn: (data: any) => quizService.quizProcess(data),
+		mutationKey: ['processQuiz'],
+		mutationFn: (data: any) => quizService.processQuiz(data),
 		onSuccess(response) {
 			toast({
 				title: 'Тест завершен',
 			})
 			setResults(response.data)
+			window.scrollTo({ top: 0, behavior: 'smooth' })
 		},
 		onError: (error) => {
 			toast({
@@ -43,6 +46,7 @@ export const QuizProcessPage = () => {
 			})
 		},
 	})
+
 	const { isLoading, data } = useQuery({
 		queryKey: [SINGLE_QUIZ_URL],
 		queryFn: () => quizService.fetchQuizByUrl(url),
@@ -86,8 +90,8 @@ export const QuizProcessPage = () => {
 			) : (
 				<div className="flex flex-col items-center gap-2 p-10">
 					{results?.success ? (
-						<div className="rounded-md flex items-center justify-center p-2 bg-muted/80">
-							<ul className="flex items-center gap-2">
+						<div className="rounded-md flex items-center justify-center p-3 bg-muted/80">
+							<ul className="flex items-center gap-4">
 								<li className="flex items-center gap-2">
 									<small className="text-xs text-sky-600">
 										Правильных ответов:
@@ -138,7 +142,7 @@ export const QuizProcessPage = () => {
 										<small className=" text-sky-600 text-xs">
 											Вопрос №: {index + 1}
 										</small>
-										<span className="flex items-center gap-2">
+										<span className="flex items-center gap-2 text-sm border p-2 rounded-md text-sky-900">
 											<CircleHelp size={14} />
 											{question.content}
 										</span>

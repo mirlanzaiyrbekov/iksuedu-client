@@ -1,4 +1,5 @@
 import { LoaderComponent } from '@/components/loader'
+import { NavigationComponent } from '@/components/navigation/Navigation'
 import { Separator } from '@/components/ui/separator'
 import {
 	DEFENDANT_ALL_ANSWERS,
@@ -36,14 +37,20 @@ export const DefendantAnswersPage = () => {
 		<LoaderComponent />
 	) : data && quiz ? (
 		<>
+			<NavigationComponent
+				links={[
+					{
+						name: `${quiz.title}`,
+						url: `/quiz/${quiz.id}`,
+					},
+					{
+						name: `Просмотр статистики - ${quiz.title}`,
+						url: `/defendant/answers/${quizId}/${defendantId}`,
+					},
+				]}
+			/>
 			<section>
 				<div className="my-3">
-					<div>
-						<h4 className="flex items-center gap-2">
-							<small className="text-xs text-sky-600">Название теста:</small>
-							{quiz?.title}
-						</h4>
-					</div>
 					<div className="flex flex-col gap-2 p-5">
 						<div className="flex items-center justify-between">
 							<ul className="flex items-center gap-2">

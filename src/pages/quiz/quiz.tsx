@@ -1,19 +1,11 @@
 import { CopyClipBoard } from '@/components/copy.button'
+import { DefendantLists } from '@/components/defenants.list'
 import { DeleteButton } from '@/components/delete.button'
 import { LoaderComponent } from '@/components/loader'
 import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/components/ui/table'
 import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { formatDate } from '@/helpers/formate-date'
@@ -27,7 +19,6 @@ import {
 	Calendar,
 	CalendarCheck,
 	ChartLine,
-	Eye,
 	FolderPen,
 	Pencil,
 	Percent,
@@ -83,7 +74,6 @@ export const QuizPage = () => {
 		})
 	}
 
-	console.log(data)
 	return isLoading ? (
 		<LoaderComponent />
 	) : data ? (
@@ -101,7 +91,7 @@ export const QuizPage = () => {
 							<FolderPen size={16} />
 							Название теста
 						</small>
-						<span className="font-bold">{data?.title}</span>
+						<span className="font-medium">{data?.title}</span>
 					</div>
 					<ul className="flex flex-col gap-1 items-end">
 						<li className="flex items-center gap-2">
@@ -213,49 +203,8 @@ export const QuizPage = () => {
 					</div>
 				</div>
 			</section>
-			<section>
-				<h4 className="mt-5 mb-3 text-sm font-medium">
-					Детальный список сдавших тест
-				</h4>
-				<div className="flex flex-col gap-2 max-h-56 h-full">
-					<Table className="border">
-						<TableCaption className="hidden"></TableCaption>
-						<TableHeader>
-							<TableRow>
-								<TableHead className="w-[300px]">Имя</TableHead>
-								<TableHead>Фамилия</TableHead>
-								<TableHead>E-mail</TableHead>
-								<TableHead>Учебное заведение</TableHead>
-								<TableHead>Просмотр ответов</TableHead>
-							</TableRow>
-						</TableHeader>
-						<TableBody>
-							{data.defendants.map((defendant) => (
-								<TableRow key={defendant.id}>
-									<TableCell>{defendant.firstName}</TableCell>
-									<TableCell>{defendant.lastName}</TableCell>
-									<TableCell>{defendant.email}</TableCell>
-									<TableCell>{defendant.school}</TableCell>
-									<TableCell>
-										<Button
-											size={'sm'}
-											variant={'outline'}
-											onClick={() =>
-												navigate(
-													`/defendant/answers/${data.id}/${defendant.id}`
-												)
-											}
-										>
-											<Eye />
-											Результаты теста
-										</Button>
-									</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				</div>
-			</section>
+			{/* DEFENDANT DETAIL LIST */}
+			<DefendantLists data={data} />
 		</>
 	) : (
 		<Navigate to={'/notfound'} />

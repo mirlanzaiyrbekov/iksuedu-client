@@ -1,6 +1,7 @@
 export interface IApiResponse {
 	message: string
 	success: boolean
+	expire?: boolean
 }
 export interface IQuizResponse extends IApiResponse {
 	correctAnswers: number

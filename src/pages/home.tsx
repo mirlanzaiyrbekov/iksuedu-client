@@ -46,14 +46,14 @@ export const HomePage = () => {
 				<div className="my-5">
 					<h4 className="font-medium flex items-baseline gap-2">
 						Ваши тесты,
-						<span className="text-sm text-sky-600">{user?.firstName}</span>
+						<span className="text-sm text-sky-900">{user?.firstName}</span>
 					</h4>
 				</div>
 				<Table className="border">
 					<TableCaption>Таблица ваших тестов</TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[300px]">Вопрос теста</TableHead>
+							<TableHead className="w-[360px]">Вопрос теста</TableHead>
 							<TableHead>Актуален</TableHead>
 							<TableHead>Дата создания</TableHead>
 							<TableHead>Актуально в течении</TableHead>
@@ -78,15 +78,15 @@ export const HomePage = () => {
 									<TableCell className="font-medium">
 										<Link
 											to={`/quiz/${quiz.id}`}
-											className="font-medium text-sky-900"
+											className="font-medium text-sky-900 underline"
 										>
 											{quiz.title}
 										</Link>
 									</TableCell>
-									<TableCell className="font-medium text-xs text-sky-600">
+									<TableCell className="font-medium text-xs text-sky-900">
 										до - {formatDate(quiz.expires)}
 									</TableCell>
-									<TableCell className="font-medium text-xs text-sky-600">
+									<TableCell className="font-medium text-xs text-sky-900">
 										{formatDate(quiz.createdAt)}
 									</TableCell>
 									<TableCell className="font-medium">
