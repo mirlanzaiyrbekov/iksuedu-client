@@ -80,14 +80,14 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 	}
 
 	return (
-		<div className="flex flex-col items-center py-8">
+		<div className="flex flex-col items-center mobile-xs:p-2 mobile-sm:p-4 mobile-md:p-6">
 			<div className="flex flex-col items-center gap-3">
-				<span className="text-sky-900 font-medium my-4">
+				<span className="text-sky-900 font-medium mobile-xs:my-5">
 					<q>{data.title}</q>
 				</span>
 			</div>
 
-			<div className="max-w-sm  w-full">
+			<div className="w-full tablet-md:max-w-sm">
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
@@ -98,10 +98,12 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 							name="firstName"
 							render={({ field }) => (
 								<FormItem className="relative">
-									<FormLabel>Имя</FormLabel>
+									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
+										Имя
+									</FormLabel>
 									<FormControl>
 										<Input
-											className="rounded-lg"
+											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
 											placeholder="Ваше имя"
 											{...field}
 										/>
@@ -115,10 +117,12 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 							name={'lastName'}
 							render={({ field }) => (
 								<FormItem className="relative">
-									<FormLabel>Фамилия</FormLabel>
+									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
+										Фамилия
+									</FormLabel>
 									<FormControl>
 										<Input
-											className="rounded-lg"
+											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
 											placeholder="Фамилия"
 											{...field}
 										/>
@@ -132,10 +136,12 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 							name={'school'}
 							render={({ field }) => (
 								<FormItem className="relative">
-									<FormLabel>Учебное заведение</FormLabel>
+									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
+										Учебное заведение
+									</FormLabel>
 									<FormControl>
 										<Input
-											className="rounded-lg"
+											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
 											placeholder="Учебное заведение"
 											{...field}
 										/>
@@ -149,10 +155,12 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 							name="email"
 							render={({ field }) => (
 								<FormItem className="relative">
-									<FormLabel>E-mail</FormLabel>
+									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
+										E-mail
+									</FormLabel>
 									<FormControl>
 										<Input
-											className="rounded-lg"
+											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
 											placeholder="E-mail: example@gmail.com"
 											{...field}
 										/>
@@ -161,7 +169,10 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 								</FormItem>
 							)}
 						/>
-						<Button type="submit" className="w-full my-2 rounded-xl">
+						<Button
+							type="submit"
+							className="w-full my-2 rounded-xl mobile-xs:text-xs tablet-md:text-sm"
+						>
 							{isPending ? (
 								<Loader2 className="animate-spin" />
 							) : (

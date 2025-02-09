@@ -17,7 +17,7 @@ export const Layout: React.FC = () => {
 			</Helmet>
 			<div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
 				<Header />
-				<main className="px-12">
+				<main className="mobile-xs:px-2 mobile-sm:p-5 mobile-md:p-8">
 					<Outlet />
 					<Toaster />
 				</main>

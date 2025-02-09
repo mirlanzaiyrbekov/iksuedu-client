@@ -88,10 +88,10 @@ export const QuizProcessPage = () => {
 					setAccess={setAccess}
 				/>
 			) : (
-				<div className="flex flex-col items-center gap-2 p-10">
+				<div className="flex flex-col items-center gap-2 mobile-xs:px-0 mobile-xs:pt-2">
 					{results?.success ? (
 						<div className="rounded-md flex items-center justify-center p-3 bg-muted/80">
-							<ul className="flex items-center gap-4">
+							<ul className="gap-4 mobile-xs:grid mobile-xs:grid-cols-1 tablet-sm:grid-cols-2 tablet-lg:flex tablet-lg:items-center">
 								<li className="flex items-center gap-2">
 									<small className="text-xs text-sky-600">
 										Правильных ответов:
@@ -112,7 +112,7 @@ export const QuizProcessPage = () => {
 									</small>
 									<span className="text-sm">{results?.totalQuestions}</span>
 								</li>
-								<li className="flex items-center gap-2">
+								<li className="flex items-center gap-2 tablet-sm:col-span-2 laptop-md:col-span-1">
 									<small className="text-xs text-sky-600">
 										Результаты теста:
 									</small>
@@ -131,18 +131,19 @@ export const QuizProcessPage = () => {
 							</ul>
 						</div>
 					) : null}
-					<div className="max-w-2xl border rounded-md p-5 w-full flex items-center flex-col gap-4">
+					<div className="border rounded-md w-full flex items-center flex-col gap-4 mobile-xs:w-full tablet-md:max-w-2xl tablet-md:p-5">
 						{data.questions.map((question, index) => (
 							<ul
 								key={question.id}
-								className="border border-muted p-5 rounded-sm w-full"
+								// p-5
+								className="border border-muted rounded-sm w-full mobile-xs:p-2 tablet-md:p-5"
 							>
 								<li className="flex flex-col gap-4">
 									<div className="flex flex-col gap-4">
 										<small className=" text-sky-600 text-xs">
 											Вопрос №: {index + 1}
 										</small>
-										<span className="flex items-center gap-2 text-sm border p-2 rounded-md text-sky-900">
+										<span className="flex items-center gap-2 text-sm border rounded-md text-sky-900 mobile-xs:p-2">
 											<CircleHelp size={14} />
 											{question.content}
 										</span>
@@ -161,7 +162,7 @@ export const QuizProcessPage = () => {
 												>
 													<Label
 														htmlFor={answer.id}
-														className="text-sm cursor-pointer"
+														className="cursor-pointer mobile-xs:text-xs tablet-md:text-sm"
 													>
 														{answer.content}
 													</Label>
@@ -187,6 +188,7 @@ export const QuizProcessPage = () => {
 							</ul>
 						))}
 						<Button
+							className="mobile-xs:text-xs tablet-md:text-sm"
 							disabled={isPending || results?.success}
 							onClick={submitAnswers}
 						>
