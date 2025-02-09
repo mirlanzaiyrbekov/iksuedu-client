@@ -52,5 +52,6 @@ export const routes = createBrowserRouter([
 				element: <NotFoundPage />,
 			},
 		],
+		errorElement: <NotFoundPage />,
 	},
 ])

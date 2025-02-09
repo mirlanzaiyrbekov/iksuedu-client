@@ -1,6 +1,6 @@
 import { IDefendand, IQuiz } from '@/interfaces/quiz.interface'
 import { Loader2 } from 'lucide-react'
-import React from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -23,10 +23,10 @@ import { z } from 'zod'
 
 interface IQuizProccessAuthProps {
 	data: IQuiz
-	setAccess: React.Dispatch<React.SetStateAction<boolean>>
-	setDefendantId: React.Dispatch<React.SetStateAction<string>>
+	setAccess: Dispatch<SetStateAction<boolean>>
+	setDefendantId: Dispatch<SetStateAction<string>>
 }
-export const QuizProccessAuth: React.FC<IQuizProccessAuthProps> = ({
+export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 	data,
 	setAccess,
 	setDefendantId,

@@ -16,7 +16,7 @@ import {
 	SendHorizonal,
 	X,
 } from 'lucide-react'
-import React from 'react'
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Navigate, useParams } from 'react-router-dom'
 
@@ -25,10 +25,10 @@ export const QuizProcessPage = () => {
 
 	if (!url) return <Navigate to={'/notfound'} />
 
-	const [defendantId, setDefendantId] = React.useState('')
-	const [access, setAccess] = React.useState(false)
-	const [answers, setAnswers] = React.useState<Record<string, string>>({})
-	const [results, setResults] = React.useState<IQuizResponse>()
+	const [defendantId, setDefendantId] = useState('')
+	const [access, setAccess] = useState(false)
+	const [answers, setAnswers] = useState<Record<string, string>>({})
+	const [results, setResults] = useState<IQuizResponse>()
 
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['processQuiz'],

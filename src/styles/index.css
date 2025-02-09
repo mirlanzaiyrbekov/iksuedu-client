@@ -67,3 +67,7 @@ body {
 button:disabled {
 	@apply cursor-not-allowed;
 }
+
+.notranslate {
+	unicode-bidi: plaintext;
+}
