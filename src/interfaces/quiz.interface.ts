@@ -1,4 +1,5 @@
 import { IBase } from './base.interface'
+import { IQuestion } from './form.interface'
 import { IUser } from './user.interface'
 
 export interface IQuiz extends IBase {
@@ -19,6 +20,19 @@ export interface IDefendand extends IBase {
 	email: string
 	school: string
 	tests: IQuiz[]
+	score: number
+	passed: boolean
+}
+
+export interface IAnswers extends IBase {
+	defendantId: string
+	quizId: string
+	questionId: string
+	answerId: string
+	defendant: IDefendand
+	question: IQuestion
+	answer: IQuizQuestionsAnswers
+	quiz: IQuiz
 }
 
 export interface IQuizQuestions extends IBase {
@@ -29,4 +43,5 @@ export interface IQuizQuestions extends IBase {
 export interface IQuizQuestionsAnswers extends IBase {
 	content: string
 	isCorrect: boolean
+	defendantAnswers?: IQuizQuestionsAnswers
 }

@@ -122,7 +122,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 								<FormItem className="relative">
 									<FormLabel>Пароль</FormLabel>
 									<FormControl>
-										<Input placeholder="Пароль" {...field} />
+										<Input type="password" placeholder="Пароль" {...field} />
 									</FormControl>
 									<FormDescription className="hidden" />
 									<FormMessage className="text-xs" />

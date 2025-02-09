@@ -5,6 +5,15 @@ import { NavigationComponent } from '@/components/navigation/Navigation'
 import { QrCodeComponent } from '@/components/qrCode'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '@/components/ui/table'
 import { QUIZ_UNIQUE_URL } from '@/constants/app.constants'
 import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { formatDate } from '@/helpers/formate-date'
@@ -18,6 +27,7 @@ import {
 	Calendar,
 	CalendarCheck,
 	ChartLine,
+	Eye,
 	FolderPen,
 	Pencil,
 	Percent,
@@ -73,6 +83,7 @@ export const QuizPage = () => {
 		})
 	}
 
+	console.log(data)
 	return isLoading ? (
 		<LoaderComponent />
 	) : data ? (
@@ -109,18 +120,18 @@ export const QuizPage = () => {
 					<div className="flex flex-col gap-5 border rounded-md p-2">
 						<span className="text-sm font-medium flex items-center gap-1.5">
 							<ChartLine size={14} />
-							Сатистика
+							Статистика
 						</span>
 						<ul className="flex flex-col gap-1.5">
 							<li className="flex items-center justify-between">
-								<small className="text-xs text-sky-600">Сдавщих:</small>
+								<small className="text-xs text-sky-600">сдавших:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{data.passed}
 									<UserRoundCheck size={14} />
 								</span>
 							</li>
 							<li className="flex items-center justify-between">
-								<small className="text-xs text-sky-600">Не сдавщих:</small>
+								<small className="text-xs text-sky-600">Не сдавших:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{data.didNotPass}
 									<UserRoundX size={14} />
@@ -128,7 +139,7 @@ export const QuizPage = () => {
 							</li>
 							<li className="flex items-center justify-between">
 								<small className="text-xs text-sky-600">
-									Общее число сдавщих:
+									Общее число сдавших:
 								</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{data.defendants.length}
@@ -200,6 +211,49 @@ export const QuizPage = () => {
 							<DeleteButton onClick={deleteHandle}>Удалить</DeleteButton>
 						</div>
 					</div>
+				</div>
+			</section>
+			<section>
+				<h4 className="mt-5 mb-3 text-sm font-medium">
+					Детальный список сдавших тест
+				</h4>
+				<div className="flex flex-col gap-2 max-h-56 h-full">
+					<Table className="border">
+						<TableCaption className="hidden"></TableCaption>
+						<TableHeader>
+							<TableRow>
+								<TableHead className="w-[300px]">Имя</TableHead>
+								<TableHead>Фамилия</TableHead>
+								<TableHead>E-mail</TableHead>
+								<TableHead>Учебное заведение</TableHead>
+								<TableHead>Просмотр ответов</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{data.defendants.map((defendant) => (
+								<TableRow key={defendant.id}>
+									<TableCell>{defendant.firstName}</TableCell>
+									<TableCell>{defendant.lastName}</TableCell>
+									<TableCell>{defendant.email}</TableCell>
+									<TableCell>{defendant.school}</TableCell>
+									<TableCell>
+										<Button
+											size={'sm'}
+											variant={'outline'}
+											onClick={() =>
+												navigate(
+													`/defendant/answers/${data.id}/${defendant.id}`
+												)
+											}
+										>
+											<Eye />
+											Результаты теста
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
 				</div>
 			</section>
 		</>

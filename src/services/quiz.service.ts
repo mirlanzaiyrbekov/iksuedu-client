@@ -4,7 +4,7 @@ import {
 	IQuizResponse,
 } from '@/interfaces/api.response.interface'
 import { IQuizForm } from '@/interfaces/form.interface'
-import { IDefendand, IQuiz } from '@/interfaces/quiz.interface'
+import { IQuiz } from '@/interfaces/quiz.interface'
 
 export const quizService = {
 	async createQuiz(data: IQuizForm) {
@@ -23,28 +23,11 @@ export const quizService = {
 		})
 	},
 
-	async registerDefendant(
-		data: Pick<IDefendand, 'firstName' | 'lastName' | 'email' | 'school'>
-	) {
-		return await apiBase<IApiResponse>({
-			url: `/quiz/defendant`,
-			method: 'POST',
-			data,
-		})
-	},
-
-	async quizResults(data: any) {
+	async quizProcess(data: any) {
 		return await apiBase<IQuizResponse>({
-			url: `/quiz/results`,
+			url: `/quiz/process`,
 			method: 'POST',
 			data,
-		})
-	},
-
-	async fetchAllUserQuiz() {
-		return await apiBase<IQuiz[]>({
-			url: `/quiz`,
-			method: 'GET',
 		})
 	},
 

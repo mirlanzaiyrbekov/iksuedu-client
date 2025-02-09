@@ -11,7 +11,7 @@ export const PrivateRoute: React.FC<
 	const { user } = useUser()
 	const { pathname } = useLocation()
 
-	if (!isPublic && !user) return <Navigate to={'/notfound'} />
+	if (!isPublic && !user) return <Navigate to={'/auth'} />
 	if (user && pathname === '/auth') return <Navigate to={'/'} />
 
 	return children

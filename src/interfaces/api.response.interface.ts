@@ -4,6 +4,7 @@ export interface IApiResponse {
 }
 export interface IQuizResponse extends IApiResponse {
 	correctAnswers: number
+	passedScore: number
 	totalQuestions: number
 	score: number
 	passed: boolean

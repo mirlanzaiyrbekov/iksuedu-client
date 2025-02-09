@@ -1,5 +1,5 @@
 import { IDefendand, IQuiz } from '@/interfaces/quiz.interface'
-import { BookCheck, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/hooks/use-toast'
-import { quizService } from '@/services/quiz.service'
+import { defendantService } from '@/services/defendant.service'
 import { defendantScheme } from '@/services/scheme/defendant.scheme'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -24,21 +24,24 @@ import { z } from 'zod'
 interface IQuizProccessAuthProps {
 	data: IQuiz
 	setAccess: React.Dispatch<React.SetStateAction<boolean>>
+	setDefendantId: React.Dispatch<React.SetStateAction<string>>
 }
 export const QuizProccessAuth: React.FC<IQuizProccessAuthProps> = ({
 	data,
 	setAccess,
+	setDefendantId,
 }) => {
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['registerDefendant'],
 		mutationFn: (
 			data: Pick<IDefendand, 'firstName' | 'lastName' | 'email' | 'school'>
-		) => quizService.registerDefendant(data),
+		) => defendantService.registerDefendant(data),
 		onSuccess(response) {
 			toast({
 				title: response?.data?.message,
 			})
 			setAccess(true)
+			setDefendantId(response.data.data)
 		},
 		onError(error: any) {
 			toast({
@@ -79,10 +82,6 @@ export const QuizProccessAuth: React.FC<IQuizProccessAuthProps> = ({
 	return (
 		<div className="flex flex-col items-center py-8">
 			<div className="max-w-md w-full flex flex-col items-center gap-3">
-				<h2 className="flex items-center gap-2 text-sky-600 font-medium">
-					<BookCheck size={16} />
-					Добро пожаловать на тестирование
-				</h2>
 				<span>
 					<q>{data.title}</q>
 				</span>

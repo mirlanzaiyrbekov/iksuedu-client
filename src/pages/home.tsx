@@ -18,7 +18,7 @@ import { ALL_QUIZ } from '@/constants/request.keys.constants'
 import { formatDate } from '@/helpers/formate-date'
 import { usePagination } from '@/hooks/use-pagination'
 import { useUser } from '@/hooks/use-user'
-import { quizService } from '@/services/quiz.service'
+import { userService } from '@/services/user.service'
 import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
@@ -28,7 +28,7 @@ export const HomePage = () => {
 
 	const { isLoading, data: quizes } = useQuery({
 		queryKey: [ALL_QUIZ],
-		queryFn: () => quizService.fetchAllUserQuiz(),
+		queryFn: () => userService.fetchAllUserQuiz(),
 		select: (data) => data.data,
 	})
 
@@ -76,12 +76,17 @@ export const HomePage = () => {
 							currentQuizzes.map((quiz) => (
 								<TableRow key={quiz.id}>
 									<TableCell className="font-medium">
-										<Link to={`/quiz/${quiz.id}`}>{quiz.title}</Link>
+										<Link
+											to={`/quiz/${quiz.id}`}
+											className="font-medium text-sky-900"
+										>
+											{quiz.title}
+										</Link>
 									</TableCell>
-									<TableCell className="font-medium">
-										До: {formatDate(quiz.expires)}
+									<TableCell className="font-medium text-xs text-sky-600">
+										до - {formatDate(quiz.expires)}
 									</TableCell>
-									<TableCell className="font-medium">
+									<TableCell className="font-medium text-xs text-sky-600">
 										{formatDate(quiz.createdAt)}
 									</TableCell>
 									<TableCell className="font-medium">

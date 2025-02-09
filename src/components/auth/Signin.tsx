@@ -32,7 +32,7 @@ import { z } from 'zod'
 import { Button } from '../ui/button'
 
 export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
-	const [inputType, setInputType] = React.useState<boolean>(false)
+	const [inputType, setInputType] = React.useState<boolean>(true)
 	const navigate = useNavigate()
 	const { setAuthHandle } = useAuth()
 	const { isPending, mutateAsync } = useMutation({
@@ -87,7 +87,11 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 							<FormItem className="relative">
 								<FormLabel>E-mail</FormLabel>
 								<FormControl>
-									<Input placeholder="E-mail: example@gmail.com" {...field} />
+									<Input
+										className="rounded-lg"
+										placeholder="E-mail: example@gmail.com"
+										{...field}
+									/>
 								</FormControl>
 								<FormDescription className="hidden" />
 								<FormMessage className="text-xs" />
@@ -102,6 +106,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 								<FormLabel>Пароль</FormLabel>
 								<FormControl>
 									<Input
+										className="rounded-lg"
 										placeholder="Пароль"
 										{...field}
 										type={`${!inputType ? 'text' : 'password'}`}

@@ -21,6 +21,7 @@ import { Helmet } from 'react-helmet-async'
 import { Navigate, useParams } from 'react-router-dom'
 
 export const QuizProcessPage = () => {
+	const [defendantId, setDefendantId] = React.useState('')
 	const [access, setAccess] = React.useState(false)
 	const [answers, setAnswers] = React.useState<Record<string, string>>({})
 	const [results, setResults] = React.useState<IQuizResponse>()
@@ -29,7 +30,7 @@ export const QuizProcessPage = () => {
 
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['quizResults'],
-		mutationFn: (data: any) => quizService.quizResults(data),
+		mutationFn: (data: any) => quizService.quizProcess(data),
 		onSuccess(response) {
 			toast({
 				title: 'Тест завершен',
@@ -57,7 +58,12 @@ export const QuizProcessPage = () => {
 
 	const submitAnswers = async () => {
 		try {
-			await mutateAsync({ quizId: data?.id, answers })
+			console.log(answers)
+			await mutateAsync({
+				quizId: data?.id,
+				answers,
+				defendantId,
+			})
 		} catch (error) {
 			console.error('Ошибка отправки', error)
 			alert('Ошибка при отправке ответов!')
@@ -72,7 +78,11 @@ export const QuizProcessPage = () => {
 				<title>Добро пожаловать на {data.title}</title>
 			</Helmet>
 			{!access ? (
-				<QuizProccessAuth data={data} setAccess={setAccess} />
+				<QuizProccessAuth
+					setDefendantId={setDefendantId}
+					data={data}
+					setAccess={setAccess}
+				/>
 			) : (
 				<div className="flex flex-col items-center gap-2 p-10">
 					{results?.success ? (
@@ -85,10 +95,12 @@ export const QuizProcessPage = () => {
 									<span className="text-sm">{results?.correctAnswers}</span>
 								</li>
 								<li className="flex items-center gap-2">
-									<small className="text-xs text-sky-600">
-										Процент точности:
-									</small>
+									<small className="text-xs text-sky-600">Ваш бал:</small>
 									<span className="text-sm">{Math.round(results?.score)}%</span>
+								</li>
+								<li className="flex items-center gap-2">
+									<small className="text-xs text-sky-600">Проходной бал:</small>
+									<span className="text-sm">{results?.passedScore}%</span>
 								</li>
 								<li className="flex items-center gap-2">
 									<small className="text-xs text-sky-600">

@@ -4,6 +4,7 @@ import { Layout } from './layout/layout'
 import { AuthPage } from './pages/auth'
 import { CreateTestPage } from './pages/crud/create'
 import { UpdateTestPage } from './pages/crud/update'
+import { DefendantAnswersPage } from './pages/defendant/answers'
 import { HomePage } from './pages/home'
 import { NotFoundPage } from './pages/not-found'
 import { QuizPage } from './pages/quiz/quiz'
@@ -41,6 +42,10 @@ export const routes = createBrowserRouter([
 			{
 				path: '/quiz/testing/:url',
 				element: <QuizProcessPage />,
+			},
+			{
+				path: '/defendant/answers/:quizId/:defendantId',
+				element: <PrivateRoute children={<DefendantAnswersPage />} />,
 			},
 			{
 				path: '/*',
