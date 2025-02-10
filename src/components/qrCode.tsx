@@ -29,7 +29,7 @@ export const QrCodeComponent: React.FC<IQrCodeComponentProps> = ({
 	return (
 		<Dialog>
 			<DialogTrigger disabled={inActive}>
-				<div className="border p-1 rounded-sm">
+				<div className="flex items-center justify-center border p-1 rounded-sm">
 					<QrCode />
 				</div>
 			</DialogTrigger>

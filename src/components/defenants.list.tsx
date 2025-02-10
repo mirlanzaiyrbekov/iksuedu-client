@@ -26,10 +26,16 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 					<TableCaption className="hidden"></TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[300px]">Имя</TableHead>
-							<TableHead>Фамилия</TableHead>
-							<TableHead>E-mail</TableHead>
-							<TableHead>Учебное заведение</TableHead>
+							<TableHead className="w-full tablet-sm:w-[360px]">Имя</TableHead>
+							<TableHead className="hidden tablet-md:table-cell">
+								Фамилия
+							</TableHead>
+							<TableHead className="hidden tablet-md:table-cell">
+								E-mail
+							</TableHead>
+							<TableHead className="hidden tablet-md:table-cell">
+								Учебное заведение
+							</TableHead>
 							<TableHead>Просмотр ответов</TableHead>
 						</TableRow>
 					</TableHeader>
@@ -37,9 +43,15 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 						{data.defendants.map((defendant) => (
 							<TableRow key={defendant.id}>
 								<TableCell>{defendant.firstName}</TableCell>
-								<TableCell>{defendant.lastName}</TableCell>
-								<TableCell>{defendant.email}</TableCell>
-								<TableCell>{defendant.school}</TableCell>
+								<TableCell className="hidden tablet-md:table-cell">
+									{defendant.lastName}
+								</TableCell>
+								<TableCell className="hidden tablet-md:table-cell">
+									{defendant.email}
+								</TableCell>
+								<TableCell className="hidden tablet-md:table-cell">
+									{defendant.school}
+								</TableCell>
 								<TableCell>
 									<Button
 										size={'sm'}

@@ -2,13 +2,14 @@ export const Footer = () => {
 	const dateNow = new Date().getFullYear()
 	return (
 		<>
-			<div className="px-12 py-4 flex items-center justify-between">
-				<ul className="flex items-center gap-2">
+			{/* items-center justify-between */}
+			<div className="flex gap-3 mobile-xs:flex-col mobile-xs:p-5 mobile-lg:p-10 tablet-sm:justify-between tablet-sm:flex-row">
+				<ul className="flex gap-2 mobile-xs:flex-col tablet-sm:flex-row">
 					<li className="flex items-center gap-1">
 						<small className="text-xs">&copy;</small>
 						<span className="text-sky-500 text-[12px]">{dateNow}</span>
 					</li>
-					<li className="flex items-center gap-2">
+					<li className="flex gap-2 items-center">
 						<small className="text-[10px]">
 							Developed at the initiative of
 						</small>

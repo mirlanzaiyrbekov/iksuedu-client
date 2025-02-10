@@ -53,12 +53,24 @@ export const HomePage = () => {
 					<TableCaption>Таблица ваших тестов</TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[360px]">Вопрос теста</TableHead>
-							<TableHead>Актуален</TableHead>
-							<TableHead>Дата создания</TableHead>
-							<TableHead>Актуально в течении</TableHead>
-							<TableHead>Ссылка</TableHead>
-							<TableHead>QR код</TableHead>
+							<TableHead className="w-[100%] mobile-md:w-[360px]">
+								Вопрос теста
+							</TableHead>
+							<TableHead className="hidden tablet-md:table-cell">
+								Актуален
+							</TableHead>
+							<TableHead className="hidden laptop-md:table-cell">
+								Дата создания
+							</TableHead>
+							<TableHead className="hidden laptop-md:table-cell">
+								Актуально в течении
+							</TableHead>
+							<TableHead className="hidden tablet-md:table-cell">
+								Ссылка
+							</TableHead>
+							<TableHead className="hidden tablet-md:table-cell">
+								QR код
+							</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -83,22 +95,22 @@ export const HomePage = () => {
 											{quiz.title}
 										</Link>
 									</TableCell>
-									<TableCell className="font-medium text-xs text-sky-900">
+									<TableCell className="font-medium text-xs text-sky-900 hidden tablet-md:table-cell">
 										до - {formatDate(quiz.expires)}
 									</TableCell>
-									<TableCell className="font-medium text-xs text-sky-900">
+									<TableCell className="font-medium text-xs text-sky-900 hidden laptop-md:table-cell">
 										{formatDate(quiz.createdAt)}
 									</TableCell>
-									<TableCell className="font-medium">
+									<TableCell className="font-medium hidden laptop-md:table-cell">
 										<ExpireDateComponent date={quiz.expires} />
 									</TableCell>
-									<TableCell className="font-medium">
+									<TableCell className="font-medium hidden tablet-md:table-cell">
 										<CopyClipBoard
 											expire={quiz.expires}
 											content={`${QUIZ_UNIQUE_URL}/quiz/testing/${quiz.url}`}
 										/>
 									</TableCell>
-									<TableCell className="font-medium">
+									<TableCell className="font-medium hidden tablet-md:table-cell">
 										<QrCodeComponent
 											expire={quiz.expires}
 											url={`${QUIZ_UNIQUE_URL}/quiz/testing/${quiz.url}`}

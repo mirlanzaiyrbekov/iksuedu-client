@@ -12,7 +12,7 @@ export const DeleteButton: React.FC<
 				className="my-1 flex items-center gap-2 text-xs border border-destructive p-2 rounded-md"
 			>
 				<Trash size={14} />
-				{children}
+				<span className="mobile-xs:hidden tablet-md:flex">{children}</span>
 			</div>
 		</DialogConfirm>
 	)

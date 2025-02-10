@@ -147,7 +147,7 @@ export const UpdateTestPage = () => {
 									</FormItem>
 								)}
 							/>
-							<div className="flex items-baseline gap-1.5">
+							<div className="flex gap-1.5 mobile-xs:flex-col tablet-md:flex-row tablet-md:items-baseline">
 								<FormField
 									control={form.control}
 									name="passedScore"

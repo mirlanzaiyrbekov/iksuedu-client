@@ -52,8 +52,8 @@ export const DefendantAnswersPage = () => {
 			<section>
 				<div className="my-3">
 					<div className="flex flex-col gap-2 p-5">
-						<div className="flex items-center justify-between">
-							<ul className="flex items-center gap-2">
+						<div className="flex mobile-xs:flex-col mobile-xs:items-start mobile-xs:gap-3 tablet-md:flex-row tablet-md:justify-between">
+							<ul className="flex gap-2 mobile-xs:flex-col mobile-xs:items-start tablet-md:flex-row tablet-md:items-center">
 								<li className="flex items-center gap-1.5">
 									<small className="text-xs text-sky-600">Проходной бал:</small>
 									<span className="text-sm">{quiz.passedScore}%</span>
@@ -63,7 +63,7 @@ export const DefendantAnswersPage = () => {
 									<small className="text-xs text-sky-600">Набранный бал:</small>
 									<span className="text-sm">{defendant?.score}%</span>
 								</li>
-								<li className="flex items-center gap-1.5">
+								<li className="flex gap-1.5 ">
 									<small className="text-xs text-sky-600">Статус:</small>
 									{!defendant?.passed ? (
 										<small className="text-red-600 text-xs font-medium">
@@ -85,14 +85,14 @@ export const DefendantAnswersPage = () => {
 						</div>
 						<Separator className="my-2" />
 						<h4 className="text-sm font-medium my-2">Ответы студента:</h4>
-						<ul className="grid grid-cols-2 gap-2">
+						<ul className="grid gap-2 mobile-xs:grid-cols-1 laptop-lg:grid-cols-2">
 							{data.map((answer) => (
 								<li key={answer.id}>
-									<div className="flex items-center gap-2">
-										<small className="text-xs text-sky-600">
+									<div className="flex gap-2">
+										<small className="text-xs text-sky-600 mobile-xs:hidden">
 											<CircleHelp size={16} />
 										</small>
-										<span className="text-sm font-medium">
+										<span className="text-sm font-medium line-clamp-1">
 											{answer.question.content}
 										</span>
 									</div>

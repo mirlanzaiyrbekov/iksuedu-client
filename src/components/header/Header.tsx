@@ -17,7 +17,7 @@ export const Header = () => {
 		<div className="flex flex-col gap-1.5 bg-primary/90">
 			<div className="flex items-center justify-between mobile-xs:p-1 tablet-md:p-3">
 				<div className="p-2">
-					<span className="text-white font-bold mobile-xs:text-xs tablet-md:text-base">
+					<span className="text-white font-bold mobile-xs:text-xs mobile-sm:text-base">
 						IKSU - Academy
 					</span>
 				</div>
@@ -47,24 +47,24 @@ export const Header = () => {
 					<UserComponent />
 				</div>
 
-				<div className="tablet-md:hidden">
+				<div className="tablet-md:hidden flex items-center justify-center mr-2">
 					<Sheet>
 						<SheetTrigger>
-							<div className="text-white pr-2">
-								<Menu size={16} />
+							<div className="text-white flex items-center justify-center">
+								<Menu size={20} />
 							</div>
 						</SheetTrigger>
 						<SheetContent className="mobile-xs:w-full">
 							<SheetHeader>
 								<SheetTitle className="hidden" />
 								<SheetDescription asChild>
-									<div className="flex items-center justify-center p-10">
+									<div className="flex items-center justify-center p-2 w-full h-screen">
 										{!user ? null : (
 											<ul className="flex flex-col gap-4">
 												<li className="text-sm">
 													<Link
 														to={'/'}
-														className="flex items-center gap-2 hover:text-sky-300"
+														className="mobile-sm:text-base flex items-center gap-2 hover:text-sky-300"
 													>
 														<Scroll size={16} />
 														Мои тесты
@@ -73,7 +73,7 @@ export const Header = () => {
 												<li className="text-sm">
 													<Link
 														to={'/create'}
-														className="flex items-center gap-2 hover:text-sky-300"
+														className="mobile-sm:text-base flex items-center gap-2 hover:text-sky-300"
 													>
 														<PencilLine size={16} />
 														Создать тест

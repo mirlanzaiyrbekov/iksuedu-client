@@ -85,7 +85,7 @@ export const QuizPage = () => {
 				links={[{ url: `/quiz/${data.id}`, name: data.title }]}
 			/>
 			<section>
-				<div className="flex justify-between items-end py-4">
+				<div className="flex py-4 mobile-xs:flex-col mobile-xs:items-start gap-2 tablet-lg:flex-row tablet-lg:items-baseline tablet-lg:justify-between">
 					<div className="flex flex-col gap-2">
 						<small className="text-xs text-sky-600 flex items-center gap-1.5">
 							<FolderPen size={16} />
@@ -106,7 +106,7 @@ export const QuizPage = () => {
 				<Separator />
 			</section>
 			<section>
-				<div className="grid grid-cols-4 gap-5 mt-4">
+				<div className="grid gap-5 mt-4 mobile-xs:grid-cols-1 tablet-md:grid-cols-2 laptop-md:grid-cols-4">
 					<div className="flex flex-col gap-5 border rounded-md p-2">
 						<span className="text-sm font-medium flex items-center gap-1.5">
 							<ChartLine size={14} />
