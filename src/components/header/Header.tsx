@@ -8,11 +8,21 @@ import {
 } from '@/components/ui/sheet'
 import { useUser } from '@/hooks/use-user'
 import { Menu, PencilLine, Scroll } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Separator } from '../ui/separator'
 import { UserComponent } from '../user'
 export const Header = () => {
 	const { user } = useUser()
+	const [isSheetOpen, setIsSheetOpen] = React.useState(false)
+	const { pathname } = useLocation()
+
+	React.useEffect(() => {
+		if (isSheetOpen) {
+			setIsSheetOpen(!isSheetOpen)
+		}
+	}, [pathname])
+
 	return (
 		<div className="flex flex-col gap-1.5 bg-primary/90">
 			<div className="flex items-center justify-between mobile-xs:p-1 tablet-md:p-3">
@@ -48,9 +58,15 @@ export const Header = () => {
 				</div>
 
 				<div className="tablet-md:hidden flex items-center justify-center mr-2">
-					<Sheet>
+					<Sheet
+						open={isSheetOpen}
+						onOpenChange={() => setIsSheetOpen(!isSheetOpen)}
+					>
 						<SheetTrigger>
-							<div className="text-white flex items-center justify-center">
+							<div
+								className="text-white flex items-center justify-center"
+								onClick={() => setIsSheetOpen(!isSheetOpen)}
+							>
 								<Menu size={20} />
 							</div>
 						</SheetTrigger>
@@ -58,13 +74,18 @@ export const Header = () => {
 							<SheetHeader>
 								<SheetTitle className="hidden" />
 								<SheetDescription asChild>
-									<div className="flex items-center justify-center p-2 w-full h-screen">
+									<div className="flex flex-col gap-10 p-2 w-full h-screen">
+										<div className="flex items-start">
+											<span className="font-bold mobile-xs:text-xs mobile-sm:text-[18px]">
+												IKSU - Academy
+											</span>
+										</div>
 										{!user ? null : (
-											<ul className="flex flex-col gap-4">
+											<ul className="flex flex-col gap-2">
 												<li className="text-sm">
 													<Link
 														to={'/'}
-														className="mobile-sm:text-base flex items-center gap-2 hover:text-sky-300"
+														className="mobile-sm:text-base text-primary flex items-center gap-2 hover:text-sky-300"
 													>
 														<Scroll size={16} />
 														Мои тесты
@@ -73,7 +94,7 @@ export const Header = () => {
 												<li className="text-sm">
 													<Link
 														to={'/create'}
-														className="mobile-sm:text-base flex items-center gap-2 hover:text-sky-300"
+														className="mobile-sm:text-base text-primary flex items-center gap-2 hover:text-sky-300"
 													>
 														<PencilLine size={16} />
 														Создать тест

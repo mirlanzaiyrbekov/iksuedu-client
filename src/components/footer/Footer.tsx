@@ -3,7 +3,7 @@ export const Footer = () => {
 	return (
 		<>
 			{/* items-center justify-between */}
-			<div className="flex gap-3 mobile-xs:flex-col mobile-xs:p-5 mobile-lg:p-10 tablet-sm:justify-between tablet-sm:flex-row">
+			<div className="flex gap-2 mobile-xs:flex-col mobile-xs:p-5 mobile-lg:p-10 tablet-sm:justify-between tablet-sm:flex-row">
 				<ul className="flex gap-2 mobile-xs:flex-col tablet-sm:flex-row">
 					<li className="flex items-center gap-1">
 						<small className="text-xs">&copy;</small>
