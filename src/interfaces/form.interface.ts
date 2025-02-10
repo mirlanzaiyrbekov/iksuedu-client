@@ -21,6 +21,7 @@ export interface IQuizForm {
 	id?: string
 	title?: string
 	expires?: Date | undefined
+	// expireTime?: number
 	teacherId?: string
 	passedScore?: string
 	questions?: IQuestion[]

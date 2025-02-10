@@ -47,7 +47,6 @@ apiBase.interceptors.response.use(
 		// 		return Promise.reject(errorCatch(error))
 		// 	}
 		// }
-		// Обрабатываем другие ошибки
 		return Promise.reject(errorCatch(error))
 	}
 )

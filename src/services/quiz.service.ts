@@ -7,6 +7,10 @@ import { IQuizForm } from '@/interfaces/form.interface'
 import { IQuiz } from '@/interfaces/quiz.interface'
 
 export const quizService = {
+	/**
+	 * @param data
+	 * @description CREATE QUIZ
+	 */
 	async createQuiz(data: IQuizForm) {
 		return await apiBase<IApiResponse>({
 			url: '/quiz',

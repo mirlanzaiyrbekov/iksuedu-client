@@ -64,6 +64,7 @@ export const CreateTestPage = () => {
 					teacherId: user.id,
 					expires: date,
 					questions: values.questions,
+					// expireTime:values.expireTime
 				})
 			} else {
 				toast({
@@ -137,6 +138,20 @@ export const CreateTestPage = () => {
 										<SelectData date={date} setDate={setDate} />
 									</div>
 								</div>
+								{/* <FormField
+									control={form.control}
+									name="expireTime"
+									render={({ field }) => (
+										<FormItem className="relative w-full">
+											<FormLabel className="text-xs">Проходной бал</FormLabel>
+											<FormControl>
+												<Input type='number' placeholder="Пример: 60" {...field} />
+											</FormControl>
+											<FormDescription className="hidden" />
+											<FormMessage className="text-xs " />
+										</FormItem>
+									)}
+								/> */}
 							</div>
 							<QuestionForm
 								formType="CREATE"

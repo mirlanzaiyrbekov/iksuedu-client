@@ -9,7 +9,8 @@ export function formatDate(isoDateString: Date) {
 	// Форматируем время (HH:mm:ss)
 	const time = date.toTimeString().split(' ')[0]
 
-	// Соединяем через "/"
+	//  awd2025awdadw02awd25
+	// Соединяем через "/" timeExpire => 100000000 => 12.40
 	return `${formattedDate} ${time}`
 }
 
