@@ -7,13 +7,14 @@ import {
 	SheetTrigger,
 } from '@/components/ui/sheet'
 import { useUser } from '@/hooks/use-user'
-import { Menu, PencilLine, Scroll } from 'lucide-react'
+import { LogOut, Menu, PencilLine, Scroll } from 'lucide-react'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { UserComponent } from '../user'
 export const Header = () => {
-	const { user } = useUser()
+	const { user, logOutHandle } = useUser()
 	const [isSheetOpen, setIsSheetOpen] = React.useState(false)
 	const { pathname } = useLocation()
 
@@ -100,6 +101,17 @@ export const Header = () => {
 															<PencilLine size={16} />
 															Создать тест
 														</Link>
+													</li>
+													<li className="my-3">
+														<Button
+															size={'sm'}
+															className="text-xs text-white w-full text-primary"
+															onClick={logOutHandle}
+															variant={'outline'}
+														>
+															<LogOut />
+															Выйти с аккаунта
+														</Button>
 													</li>
 												</ul>
 											}

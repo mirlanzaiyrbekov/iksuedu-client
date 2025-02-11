@@ -1,4 +1,5 @@
 import { QuestionForm } from '@/components/form/questionForm'
+import { NavigationComponent } from '@/components/navigation/Navigation'
 import { SelectData } from '@/components/selectData'
 import { Button } from '@/components/ui/button'
 import {
@@ -92,7 +93,15 @@ export const CreateTestPage = () => {
 			<Helmet>
 				<title>Создать тест</title>
 			</Helmet>
-			<div className="flex items-center justify-center py-10">
+			<NavigationComponent
+				links={[
+					{
+						name: 'Создать тест',
+						url: '/create',
+					},
+				]}
+			/>
+			<div className="flex items-center justify-center py-4">
 				<div className="flex flex-col gap-8 max-w-xl w-full border rounded-md p-2">
 					<Form {...form}>
 						<form

@@ -88,7 +88,7 @@ export const QuizProcessPage = () => {
 					setAccess={setAccess}
 				/>
 			) : (
-				<div className="flex flex-col items-center gap-2 mobile-xs:px-0 mobile-xs:pt-2">
+				<div className="flex flex-col items-center gap-2 mobile-xs:px-0 mobile-xs:py-2">
 					{results?.success ? (
 						<div className="rounded-md flex items-center justify-center p-3 bg-muted/80">
 							<ul className="gap-4 mobile-xs:grid mobile-xs:grid-cols-1 tablet-sm:grid-cols-2 tablet-lg:flex tablet-lg:items-center">
@@ -131,7 +131,7 @@ export const QuizProcessPage = () => {
 							</ul>
 						</div>
 					) : null}
-					<div className="border rounded-md w-full flex items-center flex-col gap-4 mobile-xs:w-full tablet-md:max-w-2xl tablet-md:p-5">
+					<div className="border rounded-md w-full flex items-center flex-col gap-4 mobile-xs:w-full tablet-md:max-w-2xl tablet-md:p-5 mobile-xs:pb-3">
 						{data.questions.map((question, index) => (
 							<ul
 								key={question.id}
