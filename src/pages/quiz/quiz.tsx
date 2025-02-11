@@ -20,6 +20,7 @@ import {
 	CalendarCheck,
 	ChartLine,
 	FolderPen,
+	Info,
 	Pencil,
 	Percent,
 	ShieldAlert,
@@ -27,6 +28,7 @@ import {
 	UserRound,
 	UserRoundCheck,
 	UserRoundX,
+	Users,
 } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
@@ -114,7 +116,7 @@ export const QuizPage = () => {
 						</span>
 						<ul className="flex flex-col gap-1.5">
 							<li className="flex items-center justify-between">
-								<small className="text-xs text-sky-600">сдавших:</small>
+								<small className="text-xs text-sky-600">Сдавших:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{data.passed}
 									<UserRoundCheck size={14} />
@@ -133,7 +135,7 @@ export const QuizPage = () => {
 								</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{data.defendants.length}
-									<UserRoundCheck size={14} />
+									<Users size={14} />
 								</span>
 							</li>
 						</ul>
@@ -141,7 +143,7 @@ export const QuizPage = () => {
 
 					<div className="flex flex-col gap-5 border rounded-md p-2">
 						<span className="text-sm font-medium flex items-center gap-1.5">
-							<ChartLine size={14} />
+							<Info size={14} />
 							Информация
 						</span>
 						<ul className="flex flex-col gap-1.5">
@@ -153,7 +155,7 @@ export const QuizPage = () => {
 								</span>
 							</li>
 							<li className="flex items-center justify-between">
-								<small className="text-xs text-sky-600">Активен до:</small>
+								<small className="text-xs text-sky-600">Активен - до:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{formatDate(data.expires)}
 									<CalendarCheck size={14} />
@@ -186,7 +188,7 @@ export const QuizPage = () => {
 					</div>
 					<div className="flex flex-col gap-5 border rounded-md p-2">
 						<span className="text-sm font-medium flex items-center gap-1.5">
-							<ShieldAlert size={14} />
+							<ShieldAlert size={16} />
 							Действия
 						</span>
 						<div className="flex items-center gap-2 justify-center">

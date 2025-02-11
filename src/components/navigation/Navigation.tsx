@@ -25,7 +25,12 @@ export const NavigationComponent: React.FC<INavigationComponentProps> = ({
 								<React.Fragment key={link.url}>
 									<BreadcrumbSeparator />
 									<BreadcrumbItem>
-										<BreadcrumbLink href={link.url}>{link.name}</BreadcrumbLink>
+										<BreadcrumbLink
+											className="text-xs text-sky-600"
+											href={link.url}
+										>
+											{link.name}
+										</BreadcrumbLink>
 									</BreadcrumbItem>
 								</React.Fragment>
 						  ))
