@@ -63,6 +63,8 @@ export const QuestionForm: React.FC<IQuestionFormProps> = ({
 						}
 					},
 				})
+			default:
+				return remove(questionIndex)
 		}
 	}
 
@@ -78,28 +80,35 @@ export const QuestionForm: React.FC<IQuestionFormProps> = ({
 							key={question.id}
 							className="flex flex-col gap-3 border p-2 rounded-md"
 						>
-							<div className="flex items-center gap-1.5">
-								<FormField
-									control={control}
-									name={`questions.${questionIndex}.content`}
-									render={({ field }) => (
-										<FormItem className="relative grow">
-											<FormControl>
-												<Input
-													placeholder={`Вопрос № ${questionIndex + 1}`}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage className="text-xs absolute -bottom-4 right-0" />
-										</FormItem>
-									)}
-								/>
+							<div className="flex gap-1.5 flex-col">
+								<span className="text-xs font-medium my-2 text-sky-600">
+									Вопрос №{questionIndex + 1}
+								</span>
+								<div className="flex items-center gap-1.5">
+									<FormField
+										control={control}
+										name={`questions.${questionIndex}.content`}
+										render={({ field }) => (
+											<FormItem className="relative grow">
+												<FormControl>
+													<Input
+														placeholder={`Вопрос № ${questionIndex + 1}`}
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage className="text-xs absolute -bottom-4 right-0" />
+											</FormItem>
+										)}
+									/>
 
-								<DeleteButton
-									onClick={() => deleteHandle(question.customId, questionIndex)}
-								>
-									Удалить вопрос
-								</DeleteButton>
+									<DeleteButton
+										onClick={() =>
+											deleteHandle(question.customId, questionIndex)
+										}
+									>
+										Удалить вопрос
+									</DeleteButton>
+								</div>
 							</div>
 
 							<AnswerForm

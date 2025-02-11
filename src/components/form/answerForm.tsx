@@ -65,6 +65,8 @@ export const AnswerForm: React.FC<{
 						}
 					},
 				})
+			default:
+				return remove(questionIndex)
 		}
 	}
 

@@ -51,7 +51,7 @@ export const DefendantAnswersPage = () => {
 			/>
 			<section>
 				<div className="my-3">
-					<div className="flex flex-col gap-2 p-5">
+					<div className="flex flex-col gap-2 mobile-xs:p-1">
 						<div className="flex mobile-xs:flex-col mobile-xs:items-start mobile-xs:gap-3 tablet-md:flex-row tablet-md:justify-between">
 							<ul className="flex gap-2 mobile-xs:flex-col mobile-xs:items-start tablet-md:flex-row tablet-md:items-center">
 								<li className="flex items-center gap-1.5">
@@ -92,7 +92,7 @@ export const DefendantAnswersPage = () => {
 										<small className="text-xs text-sky-600 mobile-xs:hidden">
 											<CircleHelp size={16} />
 										</small>
-										<span className="text-sm font-medium line-clamp-1">
+										<span className="font-medium mobile-xs:text-sm">
 											{answer.question.content}
 										</span>
 									</div>
