@@ -59,7 +59,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 		}
 	}
 	return (
-		<div className="flex flex-col gap-4 items-center py-10 mobile-xs:px-5 w-full">
+		<div className="flex flex-col gap-4 items-center py-10 mobile-xs:px-5 w-full max-w-sm">
 			<h4 className="mobile-xs:text-lg tablet-sm:text-xl font-medium text-primary/90 flex items-center gap-1.5">
 				<UserRoundPlus size={18} />
 				Регистрация
@@ -163,7 +163,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 				</form>
 			</Form>
 
-			<div className="flex justify-between w-full tablet-lg:max-w-sm items-center mobile-xs:px-5">
+			<div className="flex w-full mobile-xs:flex-col gap-3 items-center justify-between tablet-md:flex-row">
 				<span className="text-xs text-sky-500">
 					Есть акаунт? Выполните вход!
 				</span>
@@ -172,7 +172,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 					onClick={() => authChoice({ type: 'LOGIN' })}
 				>
 					<UserRoundCheck />
-					Войти
+					Войти в систему
 				</Button>
 			</div>
 		</div>
