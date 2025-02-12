@@ -70,9 +70,9 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 		}
 	}
 	return (
-		<div className="flex flex-col gap-8 items-center py-10 max-w-sm w-full">
-			<h4 className="text-2xl font-medium text-primary/90 flex items-center gap-1.5">
-				<UserRoundCheck />
+		<div className="flex flex-col gap-4 items-center py-10 max-w-sm mobile-xs:px-4 w-full">
+			<h4 className="mobile-xs:text-lg tablet-sm:text-xl font-medium text-primary/90 flex items-center gap-1.5">
+				<UserRoundCheck size={18} />
 				Войти в систему
 			</h4>
 			<Form {...form}>
@@ -87,11 +87,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 							<FormItem className="relative">
 								<FormLabel>E-mail</FormLabel>
 								<FormControl>
-									<Input
-										className="rounded-lg"
-										placeholder="E-mail: example@gmail.com"
-										{...field}
-									/>
+									<Input placeholder="E-mail: example@gmail.com" {...field} />
 								</FormControl>
 								<FormDescription className="hidden" />
 								<FormMessage className="text-xs" />
@@ -106,7 +102,6 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 								<FormLabel>Пароль</FormLabel>
 								<FormControl>
 									<Input
-										className="rounded-lg"
 										placeholder="Пароль"
 										{...field}
 										type={`${!inputType ? 'text' : 'password'}`}
@@ -123,7 +118,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" className="w-full">
+					<Button type="submit" className="w-full mobile-xs:my-2">
 						{isPending ? (
 							<Loader2 className="animate-spin" />
 						) : (
@@ -133,8 +128,8 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 					</Button>
 				</form>
 			</Form>
-			<div className="flex justify-between items-center w-full">
-				<span className="text-xs text-orange-500">
+			<div className="flex w-full mobile-xs:flex-col items-center justify-between tablet-md:flex-row">
+				<span className="text-xs text-sky-600">
 					Нет акаунта? Зарегистрируйтесь!
 				</span>
 				<Button

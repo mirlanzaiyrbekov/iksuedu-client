@@ -59,25 +59,29 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 		}
 	}
 	return (
-		<div className="flex flex-col gap-8 items-center py-10">
-			<h4 className="text-2xl font-medium text-primary/90 flex items-center gap-1.5">
-				<UserRoundPlus />
+		<div className="flex flex-col gap-4 items-center py-10 mobile-xs:px-5 w-full">
+			<h4 className="mobile-xs:text-lg tablet-sm:text-xl font-medium text-primary/90 flex items-center gap-1.5">
+				<UserRoundPlus size={18} />
 				Регистрация
 			</h4>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col items-center max-w-screen-md space-y-3"
+					className="flex flex-col w-full mobile-xs:max-w-xs gap-2 tablet-lg:max-w-sm"
 				>
-					<div className="flex items-center gap-2">
+					<div className="flex gap-2 mobile-xs:flex-col tablet-lg:flex-row">
 						<FormField
 							control={form.control}
 							name="firstName"
 							render={({ field }) => (
-								<FormItem className="relative">
-									<FormLabel>Имя</FormLabel>
+								<FormItem className="w-full">
+									<FormLabel className="text-xs">Имя</FormLabel>
 									<FormControl>
-										<Input placeholder="Имя" {...field} />
+										<Input
+											className="rounded-md"
+											placeholder="Имя"
+											{...field}
+										/>
 									</FormControl>
 									<FormDescription className="hidden" />
 									<FormMessage className="text-xs" />
@@ -88,10 +92,14 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 							control={form.control}
 							name="lastName"
 							render={({ field }) => (
-								<FormItem className="relative">
-									<FormLabel>Фамилия</FormLabel>
+								<FormItem className="w-full">
+									<FormLabel className="text-xs">Фамилия</FormLabel>
 									<FormControl>
-										<Input placeholder="Фамилия" {...field} />
+										<Input
+											className="rounded-md"
+											placeholder="Фамилия"
+											{...field}
+										/>
 									</FormControl>
 									<FormDescription className="hidden" />
 									<FormMessage className="text-xs" />
@@ -100,15 +108,19 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
+					<div className="flex gap-2 flex-col">
 						<FormField
 							control={form.control}
 							name="email"
 							render={({ field }) => (
-								<FormItem className="relative">
-									<FormLabel>E-mail</FormLabel>
+								<FormItem className="w-full">
+									<FormLabel className="text-xs">E-mail</FormLabel>
 									<FormControl>
-										<Input placeholder="E-mail: example@gmail.com" {...field} />
+										<Input
+											className="rounded-md"
+											placeholder="E-mail: example@gmail.com"
+											{...field}
+										/>
 									</FormControl>
 									<FormDescription className="hidden" />
 									<FormMessage className="text-xs" />
@@ -119,10 +131,15 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 							control={form.control}
 							name="password"
 							render={({ field }) => (
-								<FormItem className="relative">
-									<FormLabel>Пароль</FormLabel>
+								<FormItem className="w-full">
+									<FormLabel className="text-xs">Пароль</FormLabel>
 									<FormControl>
-										<Input type="password" placeholder="Пароль" {...field} />
+										<Input
+											className="rounded-md"
+											type="password"
+											placeholder="Пароль"
+											{...field}
+										/>
 									</FormControl>
 									<FormDescription className="hidden" />
 									<FormMessage className="text-xs" />
@@ -131,7 +148,11 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 						/>
 					</div>
 
-					<Button disabled={isPending} type="submit" className="w-full">
+					<Button
+						disabled={isPending}
+						type="submit"
+						className="w-full rounded-lg my-2"
+					>
 						{isPending ? (
 							<Loader2 className="animate-spin" />
 						) : (
@@ -142,7 +163,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 				</form>
 			</Form>
 
-			<div className="flex justify-between items-center w-full">
+			<div className="flex justify-between w-full tablet-lg:max-w-sm items-center">
 				<span className="text-xs text-sky-500">
 					Есть акаунт? Выполните вход!
 				</span>
