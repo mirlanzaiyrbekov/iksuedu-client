@@ -2,7 +2,7 @@ export const Footer = () => {
 	const dateNow = new Date().getFullYear()
 	return (
 		<>
-			<div className="flex gap-2 mobile-xs:flex-col mobile-xs:p-5 mobile-lg:p-10 tablet-sm:justify-between tablet-sm:flex-row">
+			<div className="flex gap-1 mobile-xs:flex-col mobile-xs:p-5 mobile-lg:p-10 tablet-sm:justify-between tablet-md:flex-row">
 				<ul className="flex gap-1 mobile-xs:items-end">
 					<li className="flex gap-1 flex-col mobile-sm:flex-row mobile-sm:items-center">
 						<small className="text-[10px]">
@@ -18,7 +18,7 @@ export const Footer = () => {
 					</li>
 				</ul>
 
-				<span className="text-xs text-purple-400 font-medium">
+				<span className="text-xs text-purple-400">
 					Developed by the team: Falcon Group
 				</span>
 			</div>

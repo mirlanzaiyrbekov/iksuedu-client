@@ -102,9 +102,8 @@ export const Header = () => {
 															Создать тест
 														</Link>
 													</li>
-													<li className="my-3">
+													<li className="my-5">
 														<Button
-															size={'sm'}
 															className="text-xs text-white w-full text-primary"
 															onClick={logOutHandle}
 															variant={'outline'}

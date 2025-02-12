@@ -163,7 +163,7 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 				</form>
 			</Form>
 
-			<div className="flex justify-between w-full tablet-lg:max-w-sm items-center">
+			<div className="flex justify-between w-full tablet-lg:max-w-sm items-center mobile-xs:px-5">
 				<span className="text-xs text-sky-500">
 					Есть акаунт? Выполните вход!
 				</span>

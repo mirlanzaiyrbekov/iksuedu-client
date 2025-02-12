@@ -128,7 +128,8 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 					</Button>
 				</form>
 			</Form>
-			<div className="flex w-full mobile-xs:flex-col items-center justify-between tablet-md:flex-row">
+
+			<div className="flex w-full mobile-xs:flex-col  gap-3 items-center justify-between tablet-md:flex-row">
 				<span className="text-xs text-sky-600">
 					Нет акаунта? Зарегистрируйтесь!
 				</span>
