@@ -1,4 +1,5 @@
 import { useUser } from '@/hooks/use-user'
+import { LogOutIcon } from 'lucide-react'
 import React from 'react'
 import { Button } from './ui/button'
 
@@ -12,11 +13,13 @@ export const UserComponent: React.FC = () => {
 					<small className="text-xs text-sky-600">Привет,</small>
 					<span className="text-sm">{user.firstName}</span>
 					<Button
-						className="text-xs text-white"
+						size={'sm'}
+						title="Выйти"
+						className="text-xs text-neutral-700"
 						variant={'link'}
 						onClick={logOutHandle}
 					>
-						Выйти
+						<LogOutIcon />
 					</Button>
 				</div>
 			) : null}
