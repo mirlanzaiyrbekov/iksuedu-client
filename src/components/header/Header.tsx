@@ -24,7 +24,7 @@ export const Header = () => {
 	}, [pathname])
 
 	return (
-		<div className="flex flex-col gap-1.5  shadow-slate-100 shadow-sm">
+		<div className="sticky top-0 z-10 flex flex-col gap-1.5 bg-white backdrop-filter backdrop-blur-xl bg-opacity-30 border-b border-gray-200 shadow-sm">
 			<div className="flex items-center justify-between mobile-xs:p-1 tablet-md:px-8 tablet-md:py-2">
 				<Link to={'/'} className="flex items-center gap-1.5">
 					<img className="w-14 h-14" src="/logo.png" alt="logo" />

@@ -85,7 +85,7 @@ export const UpdateTestPage = () => {
 		if (quiz && quiz.expires) {
 			form.reset({
 				...quiz,
-				passedScore: String(quiz.passedScore) || '',
+				passedScore: `${String(quiz.passedScore)}%` || '',
 				questions: quiz.questions.map((question) => ({
 					id: question.id,
 					customId: question.id,
@@ -153,7 +153,7 @@ export const UpdateTestPage = () => {
 									name="passedScore"
 									render={({ field }) => (
 										<FormItem className="relative w-full">
-											<FormLabel className="text-xs">Проходной бал</FormLabel>
+											<FormLabel className="text-xs">Проходной порог</FormLabel>
 											<FormControl>
 												<Input placeholder="Пример: 60" {...field} />
 											</FormControl>

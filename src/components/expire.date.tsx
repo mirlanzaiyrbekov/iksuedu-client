@@ -12,6 +12,8 @@ export const ExpireDateComponent: React.FC<IExpireDateComponentProps> = ({
 	return inActive ? (
 		<span className="text-red-600">Не активен</span>
 	) : (
-		<span className="text-sky-900">{leftDays}</span>
+		<span className="text-sky-900">
+			{leftDays} <small className="text-[10px]">Дней</small>
+		</span>
 	)
 }

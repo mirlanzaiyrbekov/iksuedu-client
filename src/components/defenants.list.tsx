@@ -21,8 +21,8 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 	return (
 		<section className="my-2">
 			<h4 className="mt-5 mb-3 text-sm font-medium">Список сдавших</h4>
-			<div className="flex flex-col gap-2 max-h-56 h-full">
-				<Table className="border">
+			<div className="flex flex-col gap-2 max-h-60 h-full border rounded-md shadow-sm shadow-neutral-200">
+				<Table>
 					<TableCaption className="hidden"></TableCaption>
 					<TableHeader>
 						<TableRow>

@@ -109,7 +109,7 @@ export const QuizPage = () => {
 			</section>
 			<section>
 				<div className="grid gap-5 mt-4 mobile-xs:grid-cols-1 tablet-md:grid-cols-2 laptop-md:grid-cols-4">
-					<div className="flex flex-col gap-5 border rounded-md p-2">
+					<div className="flex flex-col gap-5 border rounded-md p-2 shadow-sm shadow-neutral-200">
 						<span className="text-sm font-medium flex items-center gap-1.5">
 							<ChartLine size={14} />
 							Статистика
@@ -141,7 +141,7 @@ export const QuizPage = () => {
 						</ul>
 					</div>
 
-					<div className="flex flex-col gap-5 border rounded-md p-2">
+					<div className="flex flex-col gap-5 border rounded-md p-2 shadow-sm shadow-neutral-200">
 						<span className="text-sm font-medium flex items-center gap-1.5">
 							<Info size={14} />
 							Информация
@@ -162,7 +162,7 @@ export const QuizPage = () => {
 								</span>
 							</li>
 							<li className="flex items-center justify-between">
-								<small className="text-xs text-sky-600">Проходной бал:</small>
+								<small className="text-xs text-sky-600">Проходной порог:</small>
 								<span className="text-sm flex items-center gap-2 font-medium">
 									{data.passedScore}
 									<Percent size={14} />
@@ -170,7 +170,7 @@ export const QuizPage = () => {
 							</li>
 						</ul>
 					</div>
-					<div className="flex flex-col gap-5 border rounded-md p-2">
+					<div className="flex flex-col gap-5 border rounded-md p-2 shadow-sm shadow-neutral-200">
 						<span className="text-sm font-medium flex items-center gap-1.5">
 							<SquareArrowOutUpRight size={14} />
 							Ссылка
@@ -186,7 +186,7 @@ export const QuizPage = () => {
 							/>
 						</div>
 					</div>
-					<div className="flex flex-col gap-5 border rounded-md p-2">
+					<div className="flex flex-col gap-5 border rounded-md p-2 shadow-sm shadow-neutral-200">
 						<span className="text-sm font-medium flex items-center gap-1.5">
 							<ShieldAlert size={16} />
 							Действия

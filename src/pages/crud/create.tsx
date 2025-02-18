@@ -132,9 +132,9 @@ export const CreateTestPage = () => {
 									name="passedScore"
 									render={({ field }) => (
 										<FormItem className="relative w-full">
-											<FormLabel className="text-xs">Проходной бал</FormLabel>
+											<FormLabel className="text-xs">Проходной порог</FormLabel>
 											<FormControl>
-												<Input placeholder="Пример: 60" {...field} />
+												<Input placeholder="Пример: 60%" {...field} />
 											</FormControl>
 											<FormDescription className="hidden" />
 											<FormMessage className="text-xs " />

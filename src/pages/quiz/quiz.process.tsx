@@ -103,7 +103,9 @@ export const QuizProcessPage = () => {
 									<span className="text-sm">{Math.round(results?.score)}%</span>
 								</li>
 								<li className="flex items-center gap-2">
-									<small className="text-xs text-sky-600">Проходной бал:</small>
+									<small className="text-xs text-sky-600">
+										Проходной порог:
+									</small>
 									<span className="text-sm">{results?.passedScore}%</span>
 								</li>
 								<li className="flex items-center gap-2">

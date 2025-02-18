@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 export const usePagination = (data: IQuiz[]) => {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const currentPage = parseInt(searchParams.get('page') || '1', 10) - 1
-	const itemsPerPage = 4
+	const itemsPerPage = 10
 
 	const offset = currentPage * itemsPerPage
 	const currentQuizzes = data?.slice(offset, offset + itemsPerPage)
