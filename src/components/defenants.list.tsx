@@ -18,6 +18,8 @@ interface IDefendantListsProps {
 }
 export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 	const navigate = useNavigate()
+
+	console.log(data)
 	return (
 		<section className="my-2">
 			<h4 className="mt-5 mb-3 text-sm font-medium">Список сдавших</h4>
@@ -36,6 +38,9 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 							<TableHead className="hidden tablet-lg:table-cell">
 								Учебное заведение
 							</TableHead>
+							<TableHead className="hidden tablet-lg:table-cell">
+								Набранный бал
+							</TableHead>
 							<TableHead className="mobile-xs:min-w-40 tablet-md:min-w-0">
 								Просмотр ответов
 							</TableHead>
@@ -53,6 +58,15 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 								</TableCell>
 								<TableCell className="hidden tablet-lg:table-cell">
 									{defendant.school}
+								</TableCell>
+								<TableCell
+									className={`${
+										defendant.score < data.passedScore
+											? 'text-red-500'
+											: 'text-green-500'
+									} hidden tablet-lg:table-cell`}
+								>
+									{defendant.score}% из {data.passedScore}%
 								</TableCell>
 								<TableCell>
 									<Button
