@@ -40,6 +40,10 @@ export const quizService = {
 		})
 	},
 
+	/**
+	 * @param id
+	 * @description FETCH QUIZ BY ID
+	 */
 	async fetchQuizById(id: string) {
 		return await apiBase<IQuiz>({
 			url: `/quiz/${id}`,
@@ -47,13 +51,31 @@ export const quizService = {
 		})
 	},
 
+	/**
+	 * @param url
+	 * @description FETCH QUIZ BY URL
+	 */
 	async fetchQuizByUrl(url?: string) {
 		return await apiBase<IQuiz>({
 			url: `/quiz/by-url/${url}`,
 			method: 'GET',
 		})
 	},
+	/**
+	 * @param url
+	 * @description FETCH QUIZ BY URL
+	 */
+	async fetchQuizByParams(url?: string) {
+		return await apiBase<IQuiz>({
+			url: `/quiz/by-url/${url}`,
+			method: 'GET',
+		})
+	},
 
+	/**
+	 * @param id
+	 * @description DELETE QUIZ
+	 */
 	async deleteQuiz(id?: string) {
 		return await apiBase<IApiResponse>({
 			url: `/quiz/${id}`,
@@ -61,6 +83,10 @@ export const quizService = {
 		})
 	},
 
+	/**
+	 * @param id
+	 * @description DELETE QUESTION
+	 */
 	async deleteQuestion(id?: string) {
 		return await apiBase<IApiResponse>({
 			url: `/quiz/question/${id}`,
@@ -68,6 +94,10 @@ export const quizService = {
 		})
 	},
 
+	/**
+	 * @param id
+	 * @description DELETE ANSWER
+	 */
 	async deleteAnswer(id?: string) {
 		return await apiBase<IApiResponse>({
 			url: `/quiz/question/answer/${id}`,

@@ -8,14 +8,7 @@ import { toast } from '@/hooks/use-toast'
 import { IQuizResponse } from '@/interfaces/api.response.interface'
 import { quizService } from '@/services/quiz.service'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import {
-	Ban,
-	Check,
-	CircleCheck,
-	CircleHelp,
-	SendHorizonal,
-	X,
-} from 'lucide-react'
+import { Ban, CircleCheck, CircleHelp, SendHorizonal } from 'lucide-react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Navigate, useParams } from 'react-router-dom'
@@ -32,7 +25,7 @@ export const QuizProcessPage = () => {
 
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['processQuiz'],
-		mutationFn: (data: any) => quizService.processQuiz(data),
+		mutationFn: quizService.processQuiz,
 		onSuccess(response) {
 			toast({
 				title: 'Тест завершен',
@@ -61,17 +54,12 @@ export const QuizProcessPage = () => {
 	}
 
 	const submitAnswers = async () => {
-		try {
-			console.log(answers)
 			await mutateAsync({
 				quizId: data?.id,
 				answers,
 				defendantId,
 			})
-		} catch (error) {
-			console.error('Ошибка отправки', error)
-			alert('Ошибка при отправке ответов!')
-		}
+		
 	}
 
 	return isLoading ? (
@@ -83,39 +71,47 @@ export const QuizProcessPage = () => {
 			</Helmet>
 			{!access ? (
 				<QuizProccessAuth
+					defendantId={defendantId}
 					setDefendantId={setDefendantId}
 					data={data}
 					setAccess={setAccess}
 				/>
 			) : (
-				<div className="flex flex-col items-center gap-2 mobile-xs:px-0 mobile-xs:py-2">
+				<div className="flex flex-col items-center gap-4 mobile-xs:px-0 mobile-xs:py-2">
+					<q className="font-medium text-base">{data.title}</q>
 					{results?.success ? (
-						<div className="rounded-md flex items-center justify-center p-3 bg-muted/80">
+						<div className="rounded-md flex items-center justify-center p-3 border">
 							<ul className="gap-4 mobile-xs:grid mobile-xs:grid-cols-1 tablet-sm:grid-cols-2 tablet-lg:flex tablet-lg:items-center">
 								<li className="flex items-center gap-2">
-									<small className="text-xs text-sky-600">
+									<small className="text-xs font-medium">
 										Правильных ответов:
 									</small>
-									<span className="text-sm">{results?.correctAnswers}</span>
+									<span className="text-sm font-medium text-sky-800">
+										{results?.correctAnswers}
+									</span>
 								</li>
 								<li className="flex items-center gap-2">
-									<small className="text-xs text-sky-600">Ваш бал:</small>
-									<span className="text-sm">{Math.round(results?.score)}%</span>
+									<small className="text-xs font-medium">Ваш бал:</small>
+									<span className="text-sm font-medium text-sky-800">
+										{Math.round(results?.score)}%
+									</span>
 								</li>
 								<li className="flex items-center gap-2">
-									<small className="text-xs text-sky-600">
+									<small className="text-xs font-medium">
 										Проходной порог:
 									</small>
-									<span className="text-sm">{results?.passedScore}%</span>
+									<span className="text-sm font-medium text-sky-800">
+										{results?.passedScore}%
+									</span>
 								</li>
 								<li className="flex items-center gap-2">
-									<small className="text-xs text-sky-600">
-										Всего вопросов:
-									</small>
-									<span className="text-sm">{results?.totalQuestions}</span>
+									<small className="text-xs font-medium">Всего вопросов:</small>
+									<span className="text-sm font-medium text-sky-800">
+										{results?.totalQuestions}
+									</span>
 								</li>
 								<li className="flex items-center gap-2 tablet-sm:col-span-2 laptop-md:col-span-1">
-									<small className="text-xs text-sky-600">
+									<small className="text-xs font-medium">
 										Результаты теста:
 									</small>
 									{!results.passed ? (
@@ -169,19 +165,14 @@ export const QuizProcessPage = () => {
 														{answer.content}
 													</Label>
 													<RadioGroupItem value={answer.id} id={answer.id} />
-													{results?.success ? (
+													{/* {results?.success ? (
 														answer.isCorrect ? (
 															<div className="text-green-400 text-xs flex items-center gap-1.5">
 																<Check size={14} />
 																Правильный
 															</div>
-														) : (
-															<div className="text-red-400 text-xs flex items-center gap-1.5">
-																<X size={14} />
-																Не правильный
-															</div>
-														)
-													) : null}
+														) : null
+													) : null} */}
 												</div>
 											))}
 										</RadioGroup>

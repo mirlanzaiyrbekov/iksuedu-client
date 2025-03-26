@@ -1,7 +1,3 @@
-import { IDefendand, IQuiz } from '@/interfaces/quiz.interface'
-import { Loader2 } from 'lucide-react'
-import { Dispatch, FC, SetStateAction } from 'react'
-
 import { Button } from '@/components/ui/button'
 import {
 	Form,
@@ -13,11 +9,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/hooks/use-toast'
+import { IQuiz } from '@/interfaces/quiz.interface'
 import { defendantService } from '@/services/defendant.service'
 import { defendantScheme } from '@/services/scheme/defendant.scheme'
+import { AttempType } from '@/types/attemp.types'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { SendHorizonal } from 'lucide-react'
+import { Loader2, SendHorizonal } from 'lucide-react'
+import React, { Dispatch, FC, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -25,17 +25,49 @@ interface IQuizProccessAuthProps {
 	data: IQuiz
 	setAccess: Dispatch<SetStateAction<boolean>>
 	setDefendantId: Dispatch<SetStateAction<string>>
+	defendantId: string
 }
 export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 	data,
 	setAccess,
 	setDefendantId,
+	defendantId,
 }) => {
+	const [attemp, setAttemp] = React.useState<AttempType>()
+
+	React.useEffect(() => {
+		const fetchDeviceInfo = async () => {
+			try {
+				const ipResponse = await fetch('https://api.ipify.org?format=json', {
+					method: 'GET',
+				})
+				const jsonData = await ipResponse.json()
+				const ipAddress = jsonData.ip
+
+				const fp = await FingerprintJS.load()
+				const fingerprintResult = await fp.get()
+
+				const userAgent = navigator.userAgent
+
+				const deviceModel =
+					/iPhone|iPad|Android|Windows|Mac|Linux/.exec(userAgent)?.[0] ||
+					'Unknown'
+				setAttemp({
+					deviceModel,
+					fingerprint: fingerprintResult.visitorId,
+					userAgent,
+					ipAddress,
+				})
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		fetchDeviceInfo()
+	}, [])
+
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['registerDefendant'],
-		mutationFn: (
-			data: Pick<IDefendand, 'firstName' | 'lastName' | 'email' | 'school'>
-		) => defendantService.registerDefendant(data),
+		mutationFn: defendantService.registerDefendant,
 		onSuccess(response) {
 			toast({
 				title: response?.data?.message,
@@ -57,9 +89,8 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 	const form = useForm<z.infer<typeof defendantScheme>>({
 		resolver: zodResolver(defendantScheme),
 		defaultValues: {
-			email: '',
-			firstName: '',
-			lastName: '',
+			fullName: '',
+			phone: '	',
 			school: '',
 		},
 	})
@@ -70,6 +101,10 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 				...values,
 				// @ts-ignore
 				testId: data.id,
+				attempt: {
+					...attemp,
+					defendantId,
+				},
 			})
 		} catch (error) {
 			toast({
@@ -95,7 +130,7 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 					>
 						<FormField
 							control={form.control}
-							name="firstName"
+							name="fullName"
 							render={({ field }) => (
 								<FormItem className="relative">
 									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
@@ -112,25 +147,7 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 								</FormItem>
 							)}
 						/>
-						<FormField
-							control={form.control}
-							name={'lastName'}
-							render={({ field }) => (
-								<FormItem className="relative">
-									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
-										Фамилия
-									</FormLabel>
-									<FormControl>
-										<Input
-											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
-											placeholder="Фамилия"
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage className="text-xs " />
-								</FormItem>
-							)}
-						/>
+
 						<FormField
 							control={form.control}
 							name={'school'}
@@ -150,18 +167,20 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 								</FormItem>
 							)}
 						/>
+
 						<FormField
 							control={form.control}
-							name="email"
+							name={'phone'}
 							render={({ field }) => (
 								<FormItem className="relative">
 									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
-										E-mail
+										Номер телефона
 									</FormLabel>
 									<FormControl>
 										<Input
 											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
-											placeholder="E-mail: example@gmail.com"
+											placeholder="+996 555 555 555"
+											type="tel"
 											{...field}
 										/>
 									</FormControl>
@@ -169,6 +188,7 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 								</FormItem>
 							)}
 						/>
+
 						<Button
 							type="submit"
 							className="w-full my-2 rounded-xl mobile-xs:text-xs tablet-md:text-sm"
