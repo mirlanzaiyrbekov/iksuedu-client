@@ -15,13 +15,12 @@ export interface IQuiz extends IBase {
 }
 
 export interface IDefendand extends IBase {
-	firstName: string
-	lastName: string
-	email: string
+	fullName: string
 	school: string
 	tests: IQuiz[]
 	score: number
 	passed: boolean
+	phone: string
 }
 
 export interface IAnswers extends IBase {

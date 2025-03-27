@@ -7,12 +7,18 @@ import { IUser } from '@/interfaces/user.interface'
 export const saveToStorage = (name: string, data: any) => {
 	localStorage.setItem(name, data)
 }
-
+export const getFromStorageSafe = (key: string) => {
+	try {
+		const stored = localStorage.getItem(key)
+		return stored ? JSON.parse(stored) : null
+	} catch (error) {
+		return null
+	}
+}
 export const getFromStorage = (name: string) => {
 	try {
 		return localStorage.getItem(name)
 	} catch (error) {
-		console.error(`Ошибка при получении ${name} из localStorage`, error)
 		return null
 	}
 }

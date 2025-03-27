@@ -3,9 +3,7 @@ import { IApiResponse } from '@/interfaces/api.response.interface'
 import { IAnswers, IDefendand } from '@/interfaces/quiz.interface'
 
 export const defendantService = {
-	async registerDefendant(
-		data: Pick<IDefendand, 'firstName' | 'lastName' | 'email' | 'school'>
-	) {
+	async registerDefendant(data: any) {
 		return await apiBase<{ data: string } & IApiResponse>({
 			url: `/defendant`,
 			method: 'POST',

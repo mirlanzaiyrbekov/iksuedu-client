@@ -1,5 +1,6 @@
 import { QuizProccessAuth } from '@/components/auth/QuizProccessAuth'
 import { LoaderComponent } from '@/components/loader'
+import { QuizResults } from '@/components/quiz.results'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -8,7 +9,7 @@ import { toast } from '@/hooks/use-toast'
 import { IQuizResponse } from '@/interfaces/api.response.interface'
 import { quizService } from '@/services/quiz.service'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Ban, CircleCheck, CircleHelp, SendHorizonal } from 'lucide-react'
+import { CircleHelp, SendHorizonal } from 'lucide-react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Navigate, useParams } from 'react-router-dom'
@@ -16,12 +17,16 @@ import { Navigate, useParams } from 'react-router-dom'
 export const QuizProcessPage = () => {
 	const { url } = useParams<{ url: string }>()
 
-	if (!url) return <Navigate to={'/notfound'} />
-
 	const [defendantId, setDefendantId] = useState('')
 	const [access, setAccess] = useState(false)
-	const [answers, setAnswers] = useState<Record<string, string>>({})
+	const [answers, setAnswers] = useState<Record<string, string>>()
 	const [results, setResults] = useState<IQuizResponse>()
+
+	const { isLoading, data } = useQuery({
+		queryKey: [SINGLE_QUIZ_URL],
+		queryFn: () => quizService.fetchQuizByUrl(url),
+		select: (data) => data.data,
+	})
 
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['processQuiz'],
@@ -40,12 +45,6 @@ export const QuizProcessPage = () => {
 		},
 	})
 
-	const { isLoading, data } = useQuery({
-		queryKey: [SINGLE_QUIZ_URL],
-		queryFn: () => quizService.fetchQuizByUrl(url),
-		select: (data) => data.data,
-	})
-
 	const onValueChangeHandle = (questionId: string, answerId: string) => {
 		setAnswers((prev) => ({
 			...prev,
@@ -54,13 +53,16 @@ export const QuizProcessPage = () => {
 	}
 
 	const submitAnswers = async () => {
-			await mutateAsync({
-				quizId: data?.id,
-				answers,
-				defendantId,
-			})
-		
+		await mutateAsync({
+			quizId: data?.id,
+			answers,
+			defendantId,
+		})
 	}
+
+	// @ts-ignore
+	if ((data && data.expire && !data?.expire) || !url)
+		return <Navigate to={'/notfound'} />
 
 	return isLoading ? (
 		<LoaderComponent />
@@ -71,69 +73,19 @@ export const QuizProcessPage = () => {
 			</Helmet>
 			{!access ? (
 				<QuizProccessAuth
-					defendantId={defendantId}
-					setDefendantId={setDefendantId}
-					data={data}
 					setAccess={setAccess}
+					data={data}
+					setDefendantId={setDefendantId}
+					defendantId={defendantId}
 				/>
 			) : (
 				<div className="flex flex-col items-center gap-4 mobile-xs:px-0 mobile-xs:py-2">
 					<q className="font-medium text-base">{data.title}</q>
-					{results?.success ? (
-						<div className="rounded-md flex items-center justify-center p-3 border">
-							<ul className="gap-4 mobile-xs:grid mobile-xs:grid-cols-1 tablet-sm:grid-cols-2 tablet-lg:flex tablet-lg:items-center">
-								<li className="flex items-center gap-2">
-									<small className="text-xs font-medium">
-										Правильных ответов:
-									</small>
-									<span className="text-sm font-medium text-sky-800">
-										{results?.correctAnswers}
-									</span>
-								</li>
-								<li className="flex items-center gap-2">
-									<small className="text-xs font-medium">Ваш бал:</small>
-									<span className="text-sm font-medium text-sky-800">
-										{Math.round(results?.score)}%
-									</span>
-								</li>
-								<li className="flex items-center gap-2">
-									<small className="text-xs font-medium">
-										Проходной порог:
-									</small>
-									<span className="text-sm font-medium text-sky-800">
-										{results?.passedScore}%
-									</span>
-								</li>
-								<li className="flex items-center gap-2">
-									<small className="text-xs font-medium">Всего вопросов:</small>
-									<span className="text-sm font-medium text-sky-800">
-										{results?.totalQuestions}
-									</span>
-								</li>
-								<li className="flex items-center gap-2 tablet-sm:col-span-2 laptop-md:col-span-1">
-									<small className="text-xs font-medium">
-										Результаты теста:
-									</small>
-									{!results.passed ? (
-										<span className="text-sm text-red-600 font-medium flex items-center gap-1.5">
-											<Ban size={14} />
-											Вы не прошли тестирование
-										</span>
-									) : (
-										<span className="text-sm text-green-600 font-medium flex items-center gap-1.5">
-											<CircleCheck size={14} />
-											Вы успешно прошли тестирование
-										</span>
-									)}
-								</li>
-							</ul>
-						</div>
-					) : null}
+					{results ? <QuizResults results={results} /> : null}
 					<div className="border rounded-md w-full flex items-center flex-col gap-4 mobile-xs:w-full tablet-md:max-w-2xl tablet-md:p-5 mobile-xs:pb-3">
 						{data.questions.map((question, index) => (
 							<ul
 								key={question.id}
-								// p-5
 								className="border border-muted rounded-sm w-full mobile-xs:p-2 tablet-md:p-5"
 							>
 								<li className="flex flex-col gap-4">
@@ -166,13 +118,13 @@ export const QuizProcessPage = () => {
 													</Label>
 													<RadioGroupItem value={answer.id} id={answer.id} />
 													{/* {results?.success ? (
-														answer.isCorrect ? (
-															<div className="text-green-400 text-xs flex items-center gap-1.5">
-																<Check size={14} />
-																Правильный
-															</div>
-														) : null
-													) : null} */}
+												answer.isCorrect ? (
+													<div className="text-green-400 text-xs flex items-center gap-1.5">
+														<Check size={14} />
+														Правильный
+													</div>
+												) : null
+											) : null} */}
 												</div>
 											))}
 										</RadioGroup>

@@ -28,47 +28,43 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 					<TableCaption className="hidden"></TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-full tablet-md:w-[300px]">Имя</TableHead>
-							<TableHead className="hidden tablet-sm:table-cell">
-								Фамилия
+							<TableHead className="hidden tablet-lg:table-cell text-center">
+								ФИО
 							</TableHead>
-							<TableHead className="hidden tablet-lg:table-cell">
-								E-mail
-							</TableHead>
-							<TableHead className="hidden tablet-lg:table-cell">
+							<TableHead className="hidden tablet-lg:table-cell text-center">
 								Учебное заведение
 							</TableHead>
-							<TableHead className="hidden tablet-lg:table-cell">
+							<TableHead className="hidden tablet-lg:table-cell text-center">
+								Номер телефона
+							</TableHead>
+							<TableHead className="hidden tablet-lg:table-cell text-center">
 								Набранный бал
 							</TableHead>
-							<TableHead className="mobile-xs:min-w-40 tablet-md:min-w-0">
-								Просмотр ответов
-							</TableHead>
+							<TableHead className="text-center">Просмотр ответов</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{data.defendants.map((defendant) => (
 							<TableRow key={defendant.id}>
-								<TableCell>{defendant.firstName}</TableCell>
-								<TableCell className="hidden tablet-sm:table-cell">
-									{defendant.lastName}
+								<TableCell className="hidden tablet-lg:table-cell text-center">
+									{defendant.fullName}
 								</TableCell>
-								<TableCell className="hidden tablet-lg:table-cell">
-									{defendant.email}
-								</TableCell>
-								<TableCell className="hidden tablet-lg:table-cell">
+								<TableCell className="hidden tablet-lg:table-cell text-center">
 									{defendant.school}
+								</TableCell>
+								<TableCell className="hidden tablet-lg:table-cell text-center">
+									{defendant.phone}
 								</TableCell>
 								<TableCell
 									className={`${
 										defendant.score < data.passedScore
 											? 'text-red-500'
 											: 'text-green-500'
-									} hidden tablet-lg:table-cell`}
+									} hidden tablet-lg:table-cell text-center`}
 								>
-									{defendant.score}% из {data.passedScore}%
+									{defendant.score}%
 								</TableCell>
-								<TableCell>
+								<TableCell className="text-center">
 									<Button
 										size={'sm'}
 										variant={'outline'}
@@ -77,7 +73,7 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 										}
 									>
 										<Eye />
-										Результаты теста
+										Ответы
 									</Button>
 								</TableCell>
 							</TableRow>
