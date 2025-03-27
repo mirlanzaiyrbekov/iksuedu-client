@@ -104,12 +104,12 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 							render={({ field }) => (
 								<FormItem className="relative">
 									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
-										Имя
+										Полное имя
 									</FormLabel>
 									<FormControl>
 										<Input
 											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
-											placeholder="Ваше имя"
+											placeholder="Пример: Аманатов Аскарбек"
 											{...field}
 										/>
 									</FormControl>
