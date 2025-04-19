@@ -16,9 +16,9 @@ export const Footer = () => {
 					</li>
 				</ul>
 
-				<span className="text-xs text-purple-500">
+				{/* <span className="text-xs text-purple-500">
 					Developed and maintained by Falcon Group team
-				</span>
+				</span> */}
 			</div>
 		</>
 	)
