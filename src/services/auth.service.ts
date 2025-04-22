@@ -1,19 +1,27 @@
 import apiBase from '@/api/api-base'
-import { IApiResponse } from '@/interfaces/api.response.interface'
+import { IAuthLoginResponse } from '@/interfaces/api.response.interface'
+import { SignInType } from '@/types/form.types'
 import { z } from 'zod'
-import { signInScheme, signUpScheme } from './scheme/auth.scheme'
+import { signUpScheme } from './scheme/auth.scheme'
 
-interface IAuthLoginResponse extends IApiResponse {
-	access_token: string
-}
 export const authService = {
-	async signIn(data: z.infer<typeof signInScheme>) {
+	/**
+	 *
+	 * @param data
+	 * @description Sign in user
+	 */
+	async signIn(data: SignInType) {
 		return await apiBase<IAuthLoginResponse>({
 			url: '/auth/signin',
 			method: 'POST',
 			data,
 		})
 	},
+	/**
+	 *
+	 * @param data
+	 * @description Sign up user
+	 */
 	async signUp(data: z.infer<typeof signUpScheme>) {
 		return await apiBase<Pick<IAuthLoginResponse, 'message' | 'success'>>({
 			url: '/auth/signup',

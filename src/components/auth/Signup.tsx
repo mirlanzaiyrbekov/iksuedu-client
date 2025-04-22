@@ -8,6 +8,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { generateStrongPassword } from '@/helpers/auth.helper'
 import { toast } from '@/hooks/use-toast'
 import { IAuthProps } from '@/pages/auth'
 import { authService } from '@/services/auth.service'
@@ -132,15 +133,35 @@ export const SignUp: React.FC<IAuthProps> = ({ authChoice }) => {
 							name="password"
 							render={({ field }) => (
 								<FormItem className="w-full">
-									<FormLabel className="text-xs">Пароль</FormLabel>
+									<FormLabel className="text-xs">
+										Пароль
+										<span className="text-red-500 text-[10px] mx-2">
+											(используйте надежный пароль. Нажмите сгенерировать)
+										</span>
+									</FormLabel>
 									<FormControl>
-										<Input
-											className="rounded-md"
-											type="password"
-											placeholder="Пароль"
-											{...field}
-										/>
+										<div className="relative">
+											<Input
+												className="rounded-md"
+												placeholder="Пароль"
+												autoComplete="new-password"
+												{...field}
+											/>
+
+											<Button
+												type="button"
+												className="absolute top-1/2 right-0 -translate-y-1/2 text-xs"
+												size={'sm'}
+												variant="link"
+												onClick={() =>
+													form.setValue('password', generateStrongPassword())
+												}
+											>
+												Сгенерировать
+											</Button>
+										</div>
 									</FormControl>
+
 									<FormDescription className="hidden" />
 									<FormMessage className="text-xs" />
 								</FormItem>

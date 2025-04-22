@@ -10,3 +10,6 @@ export interface IQuizResponse extends IApiResponse {
 	score: number
 	passed: boolean
 }
+export interface IAuthLoginResponse extends IApiResponse {
+	access_token: string
+}

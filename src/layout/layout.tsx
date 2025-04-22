@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom'
 export const Layout: React.FC = () => {
 	return (
 		<>
-			<Helmet defaultTitle="Iksu Academy">
+			<Helmet defaultTitle="Добро пожаловать на iksu Academy">
 				<meta
 					name="description"
 					content="Добро пожаловать на сдачу теста онлайн"

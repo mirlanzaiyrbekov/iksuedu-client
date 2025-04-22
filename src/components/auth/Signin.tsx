@@ -33,12 +33,12 @@ import { Button } from '../ui/button'
 
 export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 	const [inputType, setInputType] = React.useState<boolean>(true)
+
 	const navigate = useNavigate()
 	const { setAuthHandle } = useAuth()
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['loginUser'],
-		mutationFn: (data: z.infer<typeof signInScheme>) =>
-			authService.signIn(data),
+		mutationFn: authService.signIn,
 	})
 
 	const form = useForm<z.infer<typeof signInScheme>>({
@@ -64,8 +64,9 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 			})
 		} catch (error) {
 			toast({
-				title: 'Ошибка.',
-				description: `${String(error)}`,
+				title: 'Ошибка входа',
+				description: 'Неверный email или пароль',
+				variant: 'destructive',
 			})
 		}
 	}
@@ -104,7 +105,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 									<Input
 										placeholder="Пароль"
 										{...field}
-										type={`${!inputType ? 'text' : 'password'}`}
+										type={inputType ? 'password' : 'text'}
 									/>
 								</FormControl>
 								<div
@@ -113,6 +114,7 @@ export const SignIn: React.FC<IAuthProps> = ({ authChoice }) => {
 								>
 									{!inputType ? <Eye size={16} /> : <EyeOff size={16} />}
 								</div>
+
 								<FormDescription className="hidden" />
 								<FormMessage className="text-xs" />
 							</FormItem>

@@ -1,8 +1,7 @@
-import CryptoJS from 'crypto-js'
-
 import { USER_INFO_SECRET_KEY } from '@/constants/app.constants'
 import { UserEnum } from '@/enum/user.enum'
 import { IUser } from '@/interfaces/user.interface'
+import CryptoJS from 'crypto-js'
 
 export const saveToStorage = (name: string, data: any) => {
 	localStorage.setItem(name, data)

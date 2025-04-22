@@ -29,6 +29,7 @@ export const HomePage = () => {
 		queryKey: [ALL_QUIZ],
 		queryFn: () => userService.fetchAllUserQuiz(),
 		select: (data) => data.data,
+		enabled: !!user,
 	})
 
 	const { handlePageChange, pageCount, currentQuizzes } = usePagination(
