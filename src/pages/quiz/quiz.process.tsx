@@ -117,14 +117,6 @@ export const QuizProcessPage = () => {
 														{answer.content}
 													</Label>
 													<RadioGroupItem value={answer.id} id={answer.id} />
-													{/* {results?.success ? (
-												answer.isCorrect ? (
-													<div className="text-green-400 text-xs flex items-center gap-1.5">
-														<Check size={14} />
-														Правильный
-													</div>
-												) : null
-											) : null} */}
 												</div>
 											))}
 										</RadioGroup>

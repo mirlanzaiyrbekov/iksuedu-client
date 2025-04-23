@@ -14,12 +14,12 @@ import { toast } from '@/hooks/use-toast'
 import { IQuiz } from '@/interfaces/quiz.interface'
 import { defendantService } from '@/services/defendant.service'
 import { defendantScheme } from '@/services/scheme/defendant.scheme'
+import { DefendatTypeRegister } from '@/types/form.types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowRight, Loader2 } from 'lucide-react'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 interface IQuizProccessAuthProps {
 	data: IQuiz
@@ -57,16 +57,16 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 		},
 	})
 
-	const form = useForm<z.infer<typeof defendantScheme>>({
+	const form = useForm<DefendatTypeRegister>({
 		resolver: zodResolver(defendantScheme),
 		defaultValues: {
 			fullName: '',
-			phone: '',
+			email: '',
 			school: '',
 		},
 	})
 
-	async function onSubmit(values: z.infer<typeof defendantScheme>) {
+	async function onSubmit(values: DefendatTypeRegister) {
 		try {
 			await mutateAsync({
 				...values,
@@ -140,21 +140,17 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 
 						<FormField
 							control={form.control}
-							name="phone"
+							name="email"
 							render={({ field }) => (
 								<FormItem className="relative">
 									<FormLabel className="mobile-xs:text-xs tablet-md:text-sm">
-										Номер телефона
+										Email
 									</FormLabel>
 									<FormControl>
 										<Input
+											{...field}
+											placeholder="Email"
 											className="rounded-lg placeholder:mobile-xs:text-xs placeholder:tablet-md:text-sm"
-											placeholder="+996 XXX XXX XXX"
-											value={field.value}
-											onChange={(e) => {
-												const formattedValue = formatPhone(e.target.value)
-												field.onChange(formattedValue)
-											}}
 										/>
 									</FormControl>
 									<FormMessage className="text-xs" />
