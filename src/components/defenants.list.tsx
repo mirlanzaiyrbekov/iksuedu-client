@@ -19,7 +19,6 @@ interface IDefendantListsProps {
 export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 	const navigate = useNavigate()
 
-	console.log(data)
 	return (
 		<section className="my-2">
 			<h4 className="mt-5 mb-3 text-sm font-medium">Список сдавших</h4>
@@ -35,7 +34,7 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 								Учебное заведение
 							</TableHead>
 							<TableHead className="hidden tablet-lg:table-cell text-center">
-								Номер телефона
+								E-mail
 							</TableHead>
 							<TableHead className="hidden tablet-lg:table-cell text-center">
 								Набранный бал
@@ -53,7 +52,7 @@ export const DefendantLists: React.FC<IDefendantListsProps> = ({ data }) => {
 									{defendant.school}
 								</TableCell>
 								<TableCell className="hidden tablet-lg:table-cell text-center">
-									{defendant.phone}
+									{defendant.email}
 								</TableCell>
 								<TableCell
 									className={`${

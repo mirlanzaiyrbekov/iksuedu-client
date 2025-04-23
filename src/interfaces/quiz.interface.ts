@@ -20,7 +20,7 @@ export interface IDefendand extends IBase {
 	tests: IQuiz[]
 	score: number
 	passed: boolean
-	phone: string
+	email: string
 }
 
 export interface IAnswers extends IBase {
