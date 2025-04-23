@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useAttemp } from '@/hooks/use-attemp'
-import { usePhoneInput } from '@/hooks/use-formatePhone'
 import { toast } from '@/hooks/use-toast'
 import { IQuiz } from '@/interfaces/quiz.interface'
 import { defendantService } from '@/services/defendant.service'
@@ -34,7 +33,6 @@ export const QuizProccessAuth: FC<IQuizProccessAuthProps> = ({
 	defendantId,
 }) => {
 	const { attemp } = useAttemp()
-	const { formatPhone } = usePhoneInput()
 	const { isPending, mutateAsync } = useMutation({
 		mutationKey: ['registerDefendant'],
 		mutationFn: defendantService.registerDefendant,
